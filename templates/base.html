@@ -6,23 +6,31 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Bootstrap CSS -->
+    {#Подключение css от bs5#}
     <link href="{% static 'Account/css/bootstrap.css' %}" rel="stylesheet" crossorigin="anonymous">
 
     <title>
+        {#Блок для заголовка#}
         {% block title %}
             Title
         {% endblock %}
     </title>
 </head>
 <body>
+{#Вывод сообщения#}
+{% if messages %}
+    {% for message in messages %}
+        {% if message.tags %}
+            <div class="alert alert-{{ message.tags }}" role="alert">{{ message }}</div>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+{#Блок для контента#}
 {% block content %}
-    <div class="container">
-
-    </div>
+    Content
 {% endblock %}
 
-<!-- Option 1: Bootstrap Bundle with Popper -->
+{#Подключение js кода от bs5#}
 <script src="{% static 'Account/js/bootstrap.bundle.js' %}" crossorigin="anonymous"></script>
 </body>
 </html>
