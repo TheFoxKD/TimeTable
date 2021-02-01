@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block add_settings %}
+    <link rel="shortcut icon" href="{% static 'TimeTable/assets/img/favicon.ico' %}" type="image/x-icon">
     <script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" crossorigin="anonymous"></script>
     <!-- Google fonts-->
     <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet"/>
@@ -13,28 +14,27 @@
 {% block content %}
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
-        <div class="container" id="page-top">
-            <a class="navbar-brand js-scroll-trigger" href="#page-top">TimeTablePlus</a>
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+        <div class="container">
+            <a class="navbar-brand" href="#page-top">TimeTablePlus</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
                     aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 Menu
                 <i class="fas fa-bars"></i>
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#projects">Projects</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#signup">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">О нас</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#projects">Возможности</a></li>
                 </ul>
             </div>
         </div>
     </nav>
     <!-- Masthead-->
-    <header class="masthead">
+    <header class="masthead" id="page-top">
         <div class="container d-flex h-100 align-items-center">
             <div class="mx-auto text-center">
                 <h1 class="mx-auto my-0 text-uppercase">TimeTablePlus</h1>
-                <h2 class="text-white-50 mx-auto mt-2 mb-5">A free, responsive, one page Bootstrap theme created by Start Bootstrap.</h2>
+                <h2 class="text-white-50 mx-auto mt-2 mb-5">Бесплатное расписание для школьников республики Коми</h2>
                 <a class="btn btn-primary" href="{% url 'Account:sign_up' %}">Зарегистрироваться</a>
                 <a class="btn btn-primary" href="{% url 'Account:sign_in' %}">Войти</a>
             </div>
@@ -45,12 +45,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 mx-auto">
-                    <h2 class="text-white mb-4">Built with Bootstrap 4</h2>
+                    <h2 class="text-white mb-4">Расписание для каждого!</h2>
                     <p class="text-white-50">
-                        Grayscale is a free Bootstrap theme created by Start Bootstrap. It can be yours right now, simply download the
-                        template on
-                        <a href="https://startbootstrap.com/theme/grayscale/">the preview page</a>
-                        . The theme is open source, and you can use it for any purpose, personal or commercial.
+                        Лучший помощник в распеделении твоего времени.
                     </p>
                 </div>
             </div>
@@ -59,16 +56,22 @@
     </section>
     <!-- Projects-->
     <section class="projects-section bg-light" id="projects">
+
         <div class="container">
+            <h1 class="text-center"><b>Возможности</b></h1>
+
             <!-- Featured Project Row-->
-            <div class="row align-items-center no-gutters mb-4 mb-lg-5">
-                <div class="col-xl-8 col-lg-7"><img class="img-fluid mb-3 mb-lg-0" src="{% static 'TimeTable/assets/img/bg-masthead.jpg' %}"
-                                                    alt=""/></div>
-                <div class="col-xl-4 col-lg-5">
-                    <div class="featured-text text-center text-lg-left">
-                        <h4>Shoreline</h4>
-                        <p class="text-black-50 mb-0">Grayscale is open source and MIT licensed. This means you can use it for any project -
-                            even commercial projects! Download it, customize it, and publish your website!</p>
+            <div class="row justify-content-center no-gutters">
+                <div class="col-lg-6"><img class="img-fluid" src="{% static 'TimeTable/assets/img/speed.jpg' %}" alt=""/></div>
+                <div class="col-lg-6 order-lg-first">
+                    <div class="bg-black text-center h-100 project">
+                        <div class="d-flex h-100">
+                            <div class="project-text w-100 my-auto text-center text-lg-right">
+                                <h4 class="text-white">Информация о погоде</h4>
+                                <p class="mb-0 text-white-50"></p>
+                                <hr class="d-none d-lg-block mb-0 mr-0"/>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -79,9 +82,8 @@
                     <div class="bg-black text-center h-100 project">
                         <div class="d-flex h-100">
                             <div class="project-text w-100 my-auto text-center text-lg-left">
-                                <h4 class="text-white">Misty</h4>
-                                <p class="mb-0 text-white-50">An example of where you can put an image of a project, or anything else, along
-                                    with a description.</p>
+                                <h4 class="text-white">Современный дизайн</h4>
+                                <p class="mb-0 text-white-50"></p>
                                 <hr class="d-none d-lg-block mb-0 ml-0"/>
                             </div>
                         </div>
@@ -95,23 +97,35 @@
                     <div class="bg-black text-center h-100 project">
                         <div class="d-flex h-100">
                             <div class="project-text w-100 my-auto text-center text-lg-right">
-                                <h4 class="text-white">Mountains</h4>
-                                <p class="mb-0 text-white-50">Another example of a project with its respective description. These sections
-                                    work well responsively as well, try this theme on a small screen!</p>
+                                <h4 class="text-white">Информация о погоде</h4>
+                                <p class="mb-0 text-white-50"></p>
                                 <hr class="d-none d-lg-block mb-0 mr-0"/>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="row justify-content-center no-gutters mb-5 mb-lg-0">
+                <div class="col-lg-6"><img class="img-fluid" src="{% static 'TimeTable/assets/img/demo-image-03.jpg' %}" alt=""/></div>
+                <div class="col-lg-6">
+                    <div class="bg-black text-center h-100 project">
+                        <div class="d-flex h-100">
+                            <div class="project-text w-100 my-auto text-center text-lg-left">
+                                <h4 class="text-white">Оповещение об актированных днях</h4>
+                                <p class="mb-0 text-white-50"></p>
+                                <hr class="d-none d-lg-block mb-0 ml-0"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+
     </section>
     <!-- Footer-->
     <footer class="footer bg-black small text-center text-white-50">
-        <div class="container">Copyright © TimeTablePlus.ru</div>
+        <div class="container">Copyright © TimeTablePlus</div>
     </footer>
 {% endblock %}
-<!-- Third party plugin JS-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
 <!-- Core theme JS-->
 <script src="{% static 'TimeTable/js/scripts.js' %}"></script>
