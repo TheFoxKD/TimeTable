@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 from django.urls import path
 
-from TimeTable.views import index
+from Schedule.views import DetailSchedule
 
 app_name = 'Schedule'
 urlpatterns = [
-    path('', index, name='schedule_list'),
+    path('<int:pk>/', DetailSchedule.as_view(), name='schedule'),
 ]
