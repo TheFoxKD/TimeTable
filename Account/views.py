@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
 from django.contrib.auth.hashers import make_password
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
-from django.views.generic import CreateView
+from django.views.generic import CreateView, FormView
 
+import Account
 from Account.forms import SignInAccountForm, SignInGiseoForm, SignUpAccountForm
 # Create your views here.
 from Account.models import Giseo
@@ -39,7 +41,7 @@ class SignInAccount(SuccessMessageMixin, LoginView):
     success_url = reverse_lazy('Account:sign_in')
 
 
-class SignInGiseo(SuccessMessageMixin, CreateView):
+class SignInGiseo(LoginRequiredMixin, SuccessMessageMixin, FormView):
     model = Giseo
     form_class = SignInGiseoForm
     template_name = 'Account/sign_in_giseo.html'
@@ -47,6 +49,17 @@ class SignInGiseo(SuccessMessageMixin, CreateView):
     success_url = reverse_lazy('Account:sign_in')
 
     def form_valid(self, form):
-        form.instance.user = self.request.user
-        form.instance.password = make_password(form.instance.password)
+        try:
+            post = Giseo.objects.get(user=self.request.user)
+            post.login = form.instance.login
+            post.password = make_password(form.instance.password)
+            post.place = form.instance.place
+            post.locality = form.instance.locality
+            post.type_of_oo = form.instance.type_of_oo
+            post.educational_organization = form.instance.educational_organization
+            post.save()
+        except Account.models.Giseo.DoesNotExist:
+            Giseo.objects.create(user=self.request.user, login=form.instance.login, password=make_password(form.instance.password), place=form.instance.place,
+                                 locality=form.instance.locality, type_of_oo=form.instance.type_of_oo,
+                                 educational_organization=form.instance.educational_organization)
         return super(SignInGiseo, self).form_valid(form)
