@@ -20,18 +20,22 @@
 </head>
 <body>
 {#Вывод сообщения#}
-{% if messages %}
-    {% for message in messages %}
-        {% if message.tags %}
-            <div class="alert alert-{{ message.tags }}" role="alert">{{ message }}</div>
-        {% endif %}
-    {% endfor %}
-{% endif %}
+
 {#Блок для контента#}
+
+
 {% block content %}
     Content
 {% endblock %}
-
+{% if messages %}
+    {% for message in messages %}
+        {% if message.tags %}
+            <div class="alert alert-{{ message.tags }}" role="alert">
+                {{ message }}
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endif %}
 {#Подключение js кода от bs5#}
 <script src="{% static 'TimeTable/js/bootstrap.bundle.js' %}" crossorigin="anonymous"></script>
 </body>

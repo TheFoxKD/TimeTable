@@ -23,20 +23,21 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a class="nav-link" href="#sign_up">Регистрация</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#sign_in_giseo">Подключить giseo</a></li>
                 </ul>
             </div>
         </div>
     </nav>
     <!-- Masthead-->
-    <header class="masthead" id="sign_up">
+    <header class="masthead" id="sign_in_giseo">
         <div class="container d-flex h-100 align-items-center">
             <div class="mx-auto text-center">
-                <h1 class="mx-auto my-0 text-uppercase masthead_h1_custom">Регистрация</h1>
+                <h1 class="mx-auto my-0 text-uppercase">Подключение giseo</h1>
                 <form method="post">
                     {% csrf_token %}
+                    {{ form.media.js }}
                     {{ form.as_p }}
-                    <button type="submit" class="btn btn-primary btn-block">Завершить регистрацию</button>
+                    <button type="submit" class="btn btn-primary btn-block">Подключить giseo</button>
                 </form>
             </div>
         </div>
