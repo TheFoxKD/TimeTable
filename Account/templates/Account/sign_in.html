@@ -37,6 +37,7 @@
                     {% csrf_token %}
                     {{ form.as_p }}
                     <button type="submit" class="btn btn-primary btn-block">Войти</button>
+                    <input type="hidden" name="next" value="/schedule/{{ user.id }}/"/>
                 </form>
             </div>
         </div>

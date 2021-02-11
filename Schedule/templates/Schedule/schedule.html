@@ -1,0 +1,384 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block add_settings %}
+    <link rel="shortcut icon" href="{% static 'TimeTable/assets/img/favicon.ico' %}" type="image/x-icon">
+    <script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+          rel="stylesheet"/>
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="{% static 'TimeTable/css/styles.css' %}" rel="stylesheet"/>
+{% endblock %}
+
+{% block content %}
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand" href="#page-top">TimeTablePlus</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
+                    aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                Menu
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a class="nav-link" href="#about">О нас</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#projects">Возможности</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Masthead-->
+    <header class="masthead" id="page-top">
+        <div class="container d-flex h-100 align-items-center">
+            <div class="mx-auto text-center">
+                <h1 class="mx-auto my-0 text-uppercase">Расписание</h1>
+            </div>
+        </div>
+
+    </header>
+    <!-- About-->
+    <div style="background-color: #010101;">
+        <div class="container" style="">
+            <div class="accordion" id="accordionExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                                aria-expanded="false"
+                                aria-controls="collapseOne" style="color: #0a53be">
+                            Понедельник
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
+                         data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover table-dark">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">Дело|Предмет</th>
+                                        <th scope="col">Домашнее задание</th>
+                                        <th scope="col">Заметка</th>
+                                        <th scope="col">Сделано?</th>
+                                        <th scope="col"></th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for obj in mon %}
+                                        <tr>
+                                            <td>{{ obj.affair }}</td>
+                                            <td>{{ obj.homework }}</td>
+                                            <td>{{ obj.note }}</td>
+                                            <td>{{ obj.is_ready }}</td>
+                                            <td><a href="#">Редактировать</a></td>
+                                            <td><a href="#">Удалить</a></td>
+                                        </tr>
+                                    {% endfor %}
+                                    <tr>
+                                        <td><a href="#">Добавить</a></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+                                aria-expanded="false" aria-controls="collapseTwo" style="color: #0a53be">
+                            Вторник
+                        </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                         data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover  table-dark">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">Дело|Предмет</th>
+                                        <th scope="col">Домашнее задание</th>
+                                        <th scope="col">Заметка</th>
+                                        <th scope="col">Сделано?</th>
+                                        <th scope="col"></th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for obj in tue %}
+                                        <tr>
+                                            <td>{{ obj.affair }}</td>
+                                            <td>{{ obj.homework }}</td>
+                                            <td>{{ obj.note }}</td>
+                                            <td>{{ obj.is_ready }}</td>
+                                            <td><a href="#">Редактировать</a></td>
+                                            <td><a href="#">Удалить</a></td>
+                                        </tr>
+                                    {% endfor %}
+                                    <tr>
+                                        <td><a href="#">Добавить</a></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingThree">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree"
+                                aria-expanded="false" aria-controls="collapseThree" style="color: #0a53be">
+                            Среда
+                        </button>
+                    </h2>
+                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                         data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover  table-dark">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">Дело|Предмет</th>
+                                        <th scope="col">Домашнее задание</th>
+                                        <th scope="col">Заметка</th>
+                                        <th scope="col">Сделано?</th>
+                                        <th scope="col"></th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for obj in wed %}
+                                        <tr>
+                                            <td>{{ obj.affair }}</td>
+                                            <td>{{ obj.homework }}</td>
+                                            <td>{{ obj.note }}</td>
+                                            <td>{{ obj.is_ready }}</td>
+                                            <td><a href="#">Редактировать</a></td>
+                                            <td><a href="#">Удалить</a></td>
+                                        </tr>
+                                    {% endfor %}
+                                    <tr>
+                                        <td><a href="#">Добавить</a></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingFourth">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFourth"
+                                aria-expanded="false" aria-controls="collapseFourth" style="color: #0a53be">
+                            Четверг
+                        </button>
+                    </h2>
+                    <div id="collapseFourth" class="accordion-collapse collapse" aria-labelledby="headingFourth"
+                         data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover  table-dark">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">Дело|Предмет</th>
+                                        <th scope="col">Домашнее задание</th>
+                                        <th scope="col">Заметка</th>
+                                        <th scope="col">Сделано?</th>
+                                        <th scope="col"></th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for obj in thu %}
+                                        <tr>
+                                            <td>{{ obj.affair }}</td>
+                                            <td>{{ obj.homework }}</td>
+                                            <td>{{ obj.note }}</td>
+                                            <td>{{ obj.is_ready }}</td>
+                                            <td><a href="#">Редактировать</a></td>
+                                            <td><a href="#">Удалить</a></td>
+                                        </tr>
+                                    {% endfor %}
+                                    <tr>
+                                        <td><a href="#">Добавить</a></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingFifth">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFifth"
+                                aria-expanded="false" aria-controls="collapseFifth" style="color: #0a53be">
+                            Пятница
+                        </button>
+                    </h2>
+                    <div id="collapseFifth" class="accordion-collapse collapse" aria-labelledby="headingFifth"
+                         data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover  table-dark">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">Дело|Предмет</th>
+                                        <th scope="col">Домашнее задание</th>
+                                        <th scope="col">Заметка</th>
+                                        <th scope="col">Сделано?</th>
+                                        <th scope="col"></th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for obj in fri %}
+                                        <tr>
+                                            <td>{{ obj.affair }}</td>
+                                            <td>{{ obj.homework }}</td>
+                                            <td>{{ obj.note }}</td>
+                                            <td>{{ obj.is_ready }}</td>
+                                            <td><a href="#">Редактировать</a></td>
+                                            <td><a href="#">Удалить</a></td>
+                                        </tr>
+                                    {% endfor %}
+                                    <tr>
+                                        <td><a href="#">Добавить</a></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingSixth">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSixth"
+                                aria-expanded="false" aria-controls="collapseSixth" style="color: #0a53be">
+                            Суббота
+                        </button>
+                    </h2>
+                    <div id="collapseSixth" class="accordion-collapse collapse" aria-labelledby="headingSixth"
+                         data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover  table-dark">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">Дело|Предмет</th>
+                                        <th scope="col">Домашнее задание</th>
+                                        <th scope="col">Заметка</th>
+                                        <th scope="col">Сделано?</th>
+                                        <th scope="col"></th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for obj in sat %}
+                                        <tr>
+                                            <td>{{ obj.affair }}</td>
+                                            <td>{{ obj.homework }}</td>
+                                            <td>{{ obj.note }}</td>
+                                            <td>{{ obj.is_ready }}</td>
+                                            <td><a href="#">Редактировать</a></td>
+                                            <td><a href="#">Удалить</a></td>
+                                        </tr>
+                                    {% endfor %}
+                                    <tr>
+                                        <td><a href="#">Добавить</a></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingSeventh">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeventh"
+                                aria-expanded="false" aria-controls="collapseSeventh" style="color: #0a53be">
+                            Воскресенье
+                        </button>
+                    </h2>
+                    <div id="collapseSeventh" class="accordion-collapse collapse" aria-labelledby="headingSeventh"
+                         data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover  table-dark">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">Дело|Предмет</th>
+                                        <th scope="col">Домашнее задание</th>
+                                        <th scope="col">Заметка</th>
+                                        <th scope="col">Сделано?</th>
+                                        <th scope="col"></th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for obj in sun %}
+                                        <tr>
+                                            <td>{{ obj.affair }}</td>
+                                            <td>{{ obj.homework }}</td>
+                                            <td>{{ obj.note }}</td>
+                                            <td>{{ obj.is_ready }}</td>
+                                            <td><a href="#">Редактировать</a></td>
+                                            <td><a href="#">Удалить</a></td>
+                                        </tr>
+                                    {% endfor %}
+                                    <tr>
+                                        <td><a href="#">Добавить</a></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer-->
+    <footer class="footer bg-black small text-center text-white-50">
+        <div class="container">Copyright © TimeTablePlus</div>
+    </footer>
+{% endblock %}
+<!-- Core theme JS-->
+<script src="{% static 'TimeTable/js/scripts.js' %}"></script>

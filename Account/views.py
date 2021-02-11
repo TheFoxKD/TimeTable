@@ -38,7 +38,6 @@ class SignInAccount(SuccessMessageMixin, LoginView):
     form_class = SignInAccountForm
     template_name = 'Account/sign_in.html'
     success_message = f'Вы успешно вошли в свой аккаунт'
-    success_url = reverse_lazy('Account:sign_in')
 
 
 class SignInGiseo(LoginRequiredMixin, SuccessMessageMixin, FormView):
@@ -62,4 +61,5 @@ class SignInGiseo(LoginRequiredMixin, SuccessMessageMixin, FormView):
             Giseo.objects.create(user=self.request.user, login=form.instance.login, password=make_password(form.instance.password), place=form.instance.place,
                                  locality=form.instance.locality, type_of_oo=form.instance.type_of_oo,
                                  educational_organization=form.instance.educational_organization)
+
         return super(SignInGiseo, self).form_valid(form)
