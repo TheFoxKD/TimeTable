@@ -10,8 +10,9 @@ class Schedule(models.Model):
     time = models.CharField(verbose_name='время', max_length=100, unique=False, help_text='Время в формате h:m-h:m')
     date = models.DateField(verbose_name='дата', unique=False, help_text='Дата в формате YYYY-MM-DD')
     affair = models.CharField(verbose_name='дело', max_length=200, unique=False, help_text='Дела должны быть в виде обычного текста')
-    note = models.CharField(verbose_name='заметка', max_length=200, unique=False, help_text='Заметки должны быть в виде обычного текста')
-    homework = models.CharField(verbose_name='домашнее задание', max_length=200, unique=False, default=None, help_text='Домашнее задание должны быть в виде обычного текста')
+    note = models.CharField(verbose_name='заметка', max_length=200, unique=False, help_text='Заметки должны быть в виде обычного текста',blank=True)
+    homework = models.CharField(verbose_name='домашнее задание', max_length=200, unique=False, default=None, help_text='Домашнее задание должны быть в виде обычного текста',
+                                blank=True)
     is_ready = models.BooleanField(verbose_name='готово?', default=False, help_text='Готово? принимает только значение True или False')
 
     def __str__(self):
