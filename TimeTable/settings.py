@@ -126,4 +126,4 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # For smart select
 USE_DJANGO_JQUERY = True
 # For auth
-
+LOGIN_REDIRECT_URL = reverse_lazy('Account:sign_in_giseo')
