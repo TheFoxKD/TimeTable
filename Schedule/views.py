@@ -3,8 +3,11 @@
 import datetime
 
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.views.generic import ListView
+from django.http import HttpResponse
+from django.views.generic import CreateView, ListView
 
+from Account.models import Type_of_oo
+from Schedule.forms import CreateAffairScheduleForm
 from Schedule.models import Schedule
 
 
@@ -33,3 +36,27 @@ class DetailSchedule(LoginRequiredMixin, UserPassesTestMixin, ListView):
             return model.user.id == self.request.user.id
         elif self.request.user.is_staff:
             return Schedule.objects.filter(user=self.kwargs['user_id'])
+
+
+class CreateAffairSchedule(LoginRequiredMixin, UserPassesTestMixin, CreateView):
+    model = Schedule
+    template_name = 'Schedule/create_affair.html'
+    form_class = CreateAffairScheduleForm
+
+    def test_func(self):
+        obj = self.get_object()
+        if obj.user.id == self.request.user.id:
+            return obj.user.id == self.request.user.id
+        elif self.request.user.is_staff:
+            return obj.user.id
+
+
+def test(request):
+    local = 177
+    sch = [Type_of_oo
+           (locality_id=local,
+            name='Дошкольное образование'
+            ),
+           ]
+    Type_of_oo.objects.bulk_create(sch)
+    return HttpResponse('Всё ок)')
