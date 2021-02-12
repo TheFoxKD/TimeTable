@@ -3,18 +3,34 @@
 import datetime
 
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.models import User
 from django.http import HttpResponse
-from django.views.generic import CreateView, ListView
+from django.urls import reverse
+from django.views.generic.edit import CreateView
 
-from Account.models import Type_of_oo
 from Schedule.forms import CreateAffairScheduleForm
 from Schedule.models import Schedule
 
 
-class DetailSchedule(LoginRequiredMixin, UserPassesTestMixin, ListView):
+class DetailSchedule(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     model = Schedule
     template_name = 'Schedule/schedule.html'
     context_object_name = 'schedule'
+    form_class = CreateAffairScheduleForm
+
+    def form_valid(self, form):
+        form.instance.user = User.objects.get(pk=self.kwargs['user_id'])
+        return super(DetailSchedule, self).form_valid(form)
+
+    def test_func(self):
+        model = Schedule.objects.filter(user=self.kwargs['user_id']).first()
+        if model.user.id == self.request.user.id:
+            return model.user.id == self.request.user.id
+        elif self.request.user.is_staff:
+            return Schedule.objects.filter(user=self.kwargs['user_id'])
+
+    def get_success_url(self):
+        return reverse('Schedule:schedule', kwargs={'user_id': self.kwargs.pop('user_id', None)})
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(DetailSchedule, self).get_context_data(**kwargs)
@@ -30,33 +46,13 @@ class DetailSchedule(LoginRequiredMixin, UserPassesTestMixin, ListView):
         context['sun'] = Schedule.objects.filter(user=self.kwargs['user_id'], date__range=[start_week, end_week], date__week_day=1)
         return context
 
-    def test_func(self):
-        model = Schedule.objects.filter(user=self.kwargs['user_id']).first()
-        if model.user.id == self.request.user.id:
-            return model.user.id == self.request.user.id
-        elif self.request.user.is_staff:
-            return Schedule.objects.filter(user=self.kwargs['user_id'])
-
-
-class CreateAffairSchedule(LoginRequiredMixin, UserPassesTestMixin, CreateView):
-    model = Schedule
-    template_name = 'Schedule/create_affair.html'
-    form_class = CreateAffairScheduleForm
-
-    def test_func(self):
-        obj = self.get_object()
-        if obj.user.id == self.request.user.id:
-            return obj.user.id == self.request.user.id
-        elif self.request.user.is_staff:
-            return obj.user.id
-
 
 def test(request):
-    local = 177
-    sch = [Type_of_oo
-           (locality_id=local,
-            name='Дошкольное образование'
-            ),
-           ]
-    Type_of_oo.objects.bulk_create(sch)
+    # local = 177
+    # sch = [Type_of_oo
+    #        (locality_id=local,
+    #         name='Дошкольное образование'
+    #         ),
+    #        ]
+    # Type_of_oo.objects.bulk_create(sch)
     return HttpResponse('Всё ок)')

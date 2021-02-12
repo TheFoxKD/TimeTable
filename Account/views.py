@@ -45,7 +45,7 @@ class SignInGiseo(LoginRequiredMixin, SuccessMessageMixin, FormView):
     form_class = SignInGiseoForm
     template_name = 'Account/sign_in_giseo.html'
     success_message = f'Вы успешно подключили giseo к своему аккаунту'
-    success_url = reverse_lazy('Account:sign_in')
+    success_url = reverse_lazy('main_page')
 
     def form_valid(self, form):
         try:

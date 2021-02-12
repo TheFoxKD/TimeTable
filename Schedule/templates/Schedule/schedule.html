@@ -15,7 +15,7 @@
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
         <div class="container">
-            <a class="navbar-brand" href="#page-top">TimeTablePlus</a>
+            <a class="navbar-brand" href="{% url 'main_page' %}">TimeTablePlus</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
                     aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 Menu
@@ -23,8 +23,21 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a class="nav-link" href="#about">О нас</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#projects">Возможности</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                            Расписание
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#mon">Понедельник</a></li>
+                            <li><a class="dropdown-item" href="#tue">Вторник</a></li>
+                            <li><a class="dropdown-item" href="#wed">Среда</a></li>
+                            <li><a class="dropdown-item" href="#thu">Четверг</a></li>
+                            <li><a class="dropdown-item" href="#fri">Пятница</a></li>
+                            <li><a class="dropdown-item" href="#sat">Суббота</a></li>
+                            <li><a class="dropdown-item" href="#sun">Воскресенье</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -42,7 +55,7 @@
     <div style="background-color: #010101;">
         <div class="container" style="">
             <div class="accordion" id="accordionExample">
-                <div class="accordion-item">
+                <div class="accordion-item" id="mon">
                     <h2 class="accordion-header" id="headingOne">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
                                 aria-expanded="false"
@@ -76,8 +89,9 @@
                                             <td><a href="#">Удалить</a></td>
                                         </tr>
                                     {% endfor %}
+                                    {{ mon.first.date }}
                                     <tr>
-                                        <td><a href="#">Добавить</a></td>
+                                        <td><a class="link-info" data-bs-toggle="modal" data-bs-target="#createAffair">Добавить</a></td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
@@ -90,7 +104,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="accordion-item">
+                <div class="accordion-item" id="tue">
                     <h2 class="accordion-header" id="headingTwo">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo"
                                 aria-expanded="false" aria-controls="collapseTwo" style="color: #0a53be">
@@ -124,7 +138,7 @@
                                         </tr>
                                     {% endfor %}
                                     <tr>
-                                        <td><a href="#">Добавить</a></td>
+                                        <td><a class="link-info" data-bs-toggle="modal" data-bs-target="#createAffair">Добавить</a></td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
@@ -137,7 +151,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="accordion-item">
+                <div class="accordion-item" id="wed">
                     <h2 class="accordion-header" id="headingThree">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree"
                                 aria-expanded="false" aria-controls="collapseThree" style="color: #0a53be">
@@ -171,7 +185,7 @@
                                         </tr>
                                     {% endfor %}
                                     <tr>
-                                        <td><a href="#">Добавить</a></td>
+                                        <td><a class="link-info" data-bs-toggle="modal" data-bs-target="#createAffair">Добавить</a></td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
@@ -184,7 +198,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="accordion-item">
+                <div class="accordion-item" id="thu">
                     <h2 class="accordion-header" id="headingFourth">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFourth"
                                 aria-expanded="false" aria-controls="collapseFourth" style="color: #0a53be">
@@ -218,7 +232,7 @@
                                         </tr>
                                     {% endfor %}
                                     <tr>
-                                        <td><a href="#">Добавить</a></td>
+                                        <td><a class="link-info" data-bs-toggle="modal" data-bs-target="#createAffair">Добавить</a></td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
@@ -231,7 +245,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="accordion-item">
+                <div class="accordion-item" id="fri">
                     <h2 class="accordion-header" id="headingFifth">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFifth"
                                 aria-expanded="false" aria-controls="collapseFifth" style="color: #0a53be">
@@ -265,7 +279,7 @@
                                         </tr>
                                     {% endfor %}
                                     <tr>
-                                        <td><a href="#">Добавить</a></td>
+                                        <td><a class="link-info" data-bs-toggle="modal" data-bs-target="#createAffair">Добавить</a></td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
@@ -278,7 +292,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="accordion-item">
+                <div class="accordion-item" id="sat">
                     <h2 class="accordion-header" id="headingSixth">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSixth"
                                 aria-expanded="false" aria-controls="collapseSixth" style="color: #0a53be">
@@ -312,7 +326,7 @@
                                         </tr>
                                     {% endfor %}
                                     <tr>
-                                        <td><a href="#">Добавить</a></td>
+                                        <td><a class="link-info" data-bs-toggle="modal" data-bs-target="#createAffair">Добавить</a></td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
@@ -325,7 +339,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="accordion-item">
+                <div class="accordion-item" id="sun">
                     <h2 class="accordion-header" id="headingSeventh">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeventh"
                                 aria-expanded="false" aria-controls="collapseSeventh" style="color: #0a53be">
@@ -359,7 +373,9 @@
                                         </tr>
                                     {% endfor %}
                                     <tr>
-                                        <td><a href="#">Добавить</a></td>
+                                        <td>
+                                            <a class="link-info" data-bs-toggle="modal" data-bs-target="#createAffair">Добавить</a>
+                                        </td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
@@ -372,6 +388,27 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="createAffair" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Добавить дело</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method="post">
+                    <div class="modal-body">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отменить</button>
+                        <button type="submit" class="btn btn-primary">Создать</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
