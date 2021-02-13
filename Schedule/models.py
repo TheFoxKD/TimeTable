@@ -15,6 +15,9 @@ class Schedule(models.Model):
                                 blank=True)
     is_ready = models.BooleanField(verbose_name='готово?', default=False, help_text='Готово? принимает только значение True или False')
 
+    # def get_absolute_url(self):
+    #     return reverse('Schedule:schedule', kwargs={'user_id': self.user_id})
+
     def __str__(self):
         return f"{self.user.username} - расписание"
 

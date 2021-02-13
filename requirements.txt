@@ -1,10 +1,5 @@
 # python -m pip freeze > requirements.txt
-asgiref==3.3.1
-click==7.1.2
 Django==3.1.6
 django-smart-selects==1.5.9
-pytz==2020.5
-six==1.15.0
-sqlparse==0.4.1
 selenium==3.141.0
 beautifulsoup4==4.9.3

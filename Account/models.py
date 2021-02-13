@@ -42,8 +42,8 @@ class Giseo(models.Model):
     login = models.CharField(max_length=150, verbose_name='логин', blank=False, help_text='Логин - это Ваше уникальное имя в системе giseo')
     password = models.CharField(max_length=100, verbose_name='пароль', blank=False,
                                 help_text='Пароль - это секретный набор символов, чтобы система поняла, что именно Вы входите в giseo')
-    place = models.ForeignKey(Place, on_delete=models.CASCADE, verbose_name='городской округ / Муниципальный район', help_text='Выберите из списка ваш городской округ или '
-                                                                                                                               'муниципальный район')
+    place = models.ForeignKey(Place, on_delete=models.CASCADE, verbose_name='городской округ / Муниципальный район',
+                              help_text='Выберите из списка ваш городской округ или ''муниципальный район')
     locality = ChainedForeignKey(Locality, chained_field='place', chained_model_field='place', auto_choose=True, sort=True, verbose_name='населённый пункт')
     type_of_oo = ChainedForeignKey(Type_of_oo, chained_field='locality', chained_model_field='locality', auto_choose=True, sort=True, verbose_name='тип ОО')
     educational_organization = ChainedForeignKey(Educational_organization, chained_field='type_of_oo', chained_model_field='type_of_oo', auto_choose=True, sort=True,

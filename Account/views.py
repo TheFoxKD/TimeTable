@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
@@ -25,7 +24,9 @@ class SignUpAccount(SuccessMessageMixin, CreateView):
     form_class = SignUpAccountForm
     template_name = 'Account/sign_up.html'
     success_message = f'Вы успешно прошли регистрацию'
-    success_url = reverse_lazy('Account:sign_in')
+
+    def get_success_url(self):
+        return reverse_lazy('Account:sign_in')
 
 
 class SignInAccount(SuccessMessageMixin, LoginView):
@@ -39,13 +40,18 @@ class SignInAccount(SuccessMessageMixin, LoginView):
     template_name = 'Account/sign_in.html'
     success_message = f'Вы успешно вошли в свой аккаунт'
 
+    def get_success_url(self):
+        return reverse_lazy('Schedule:schedule', kwargs={'user_id': self.request.user.id})
+
 
 class SignInGiseo(LoginRequiredMixin, SuccessMessageMixin, FormView):
     model = Giseo
     form_class = SignInGiseoForm
     template_name = 'Account/sign_in_giseo.html'
     success_message = f'Вы успешно подключили giseo к своему аккаунту'
-    success_url = reverse_lazy('main_page')
+
+    def get_success_url(self):
+        return reverse_lazy('Schedule:schedule', kwargs={'user_id': self.request.user.id})
 
     def form_valid(self, form):
         try:
@@ -59,7 +65,6 @@ class SignInGiseo(LoginRequiredMixin, SuccessMessageMixin, FormView):
             post.save()
         except Account.models.Giseo.DoesNotExist:
             Giseo.objects.create(user=self.request.user, login=form.instance.login, password=make_password(form.instance.password), place=form.instance.place,
-                                 locality=form.instance.locality, type_of_oo=form.instance.type_of_oo,
-                                 educational_organization=form.instance.educational_organization)
+                                 locality=form.instance.locality, type_of_oo=form.instance.type_of_oo, educational_organization=form.instance.educational_organization)
 
         return super(SignInGiseo, self).form_valid(form)

@@ -5,7 +5,7 @@ import datetime
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
 from django.http import HttpResponse
-from django.urls import reverse
+from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
 
 from Schedule.forms import CreateAffairScheduleForm
@@ -30,7 +30,7 @@ class DetailSchedule(LoginRequiredMixin, UserPassesTestMixin, CreateView):
             return Schedule.objects.filter(user=self.kwargs['user_id'])
 
     def get_success_url(self):
-        return reverse('Schedule:schedule', kwargs={'user_id': self.kwargs.pop('user_id', None)})
+        return reverse_lazy('Schedule:schedule', kwargs={'user_id': self.kwargs.pop('user_id', None)})
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(DetailSchedule, self).get_context_data(**kwargs)

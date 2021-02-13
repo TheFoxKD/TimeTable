@@ -26,5 +26,4 @@ urlpatterns = [
     path('account/', include('Account.urls')),
     path('schedule/', include('Schedule.urls')),
     path('', index, name='main_page'),
-
 ]
