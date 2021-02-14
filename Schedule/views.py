@@ -23,11 +23,10 @@ class DetailSchedule(LoginRequiredMixin, UserPassesTestMixin, CreateView):
         return super(DetailSchedule, self).form_valid(form)
 
     def test_func(self):
-        model = Schedule.objects.filter(user=self.kwargs['user_id']).first()
-        if model.user.id == self.request.user.id:
-            return model.user.id == self.request.user.id
+        if self.kwargs['user_id'] == self.request.user.id:
+            return True
         elif self.request.user.is_staff:
-            return Schedule.objects.filter(user=self.kwargs['user_id'])
+            return True
 
     def get_success_url(self):
         return reverse_lazy('Schedule:schedule', kwargs={'user_id': self.kwargs.pop('user_id', None)})
@@ -37,13 +36,13 @@ class DetailSchedule(LoginRequiredMixin, UserPassesTestMixin, CreateView):
         date = datetime.date.today()
         start_week = date - datetime.timedelta(date.weekday())
         end_week = start_week + datetime.timedelta(7)
-        context['mon'] = Schedule.objects.filter(user=self.kwargs['user_id'], date__range=[start_week, end_week], date__week_day=2)
-        context['tue'] = Schedule.objects.filter(user=self.kwargs['user_id'], date__range=[start_week, end_week], date__week_day=3)
-        context['wed'] = Schedule.objects.filter(user=self.kwargs['user_id'], date__range=[start_week, end_week], date__week_day=4)
-        context['thu'] = Schedule.objects.filter(user=self.kwargs['user_id'], date__range=[start_week, end_week], date__week_day=5)
-        context['fri'] = Schedule.objects.filter(user=self.kwargs['user_id'], date__range=[start_week, end_week], date__week_day=6)
-        context['sat'] = Schedule.objects.filter(user=self.kwargs['user_id'], date__range=[start_week, end_week], date__week_day=7)
-        context['sun'] = Schedule.objects.filter(user=self.kwargs['user_id'], date__range=[start_week, end_week], date__week_day=1)
+        context['mon'] = Schedule.objects.filter(user=self.kwargs['user_id'], date__range=[start_week, end_week], date__week_day=2).order_by('time_start')
+        context['tue'] = Schedule.objects.filter(user=self.kwargs['user_id'], date__range=[start_week, end_week], date__week_day=3).order_by('time_start')
+        context['wed'] = Schedule.objects.filter(user=self.kwargs['user_id'], date__range=[start_week, end_week], date__week_day=4).order_by('time_start')
+        context['thu'] = Schedule.objects.filter(user=self.kwargs['user_id'], date__range=[start_week, end_week], date__week_day=5).order_by('time_start')
+        context['fri'] = Schedule.objects.filter(user=self.kwargs['user_id'], date__range=[start_week, end_week], date__week_day=6).order_by('time_start')
+        context['sat'] = Schedule.objects.filter(user=self.kwargs['user_id'], date__range=[start_week, end_week], date__week_day=7).order_by('time_start')
+        context['sun'] = Schedule.objects.filter(user=self.kwargs['user_id'], date__range=[start_week, end_week], date__week_day=1).order_by('time_start')
         return context
 
 
