@@ -12,6 +12,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
+#  Copyright (c) 2021. TheFox
+
 import os
 from pathlib import Path
 
@@ -113,7 +115,7 @@ TIME_ZONE = 'Europe/Moscow'
 
 USE_I18N = True
 
-USE_L10N = True
+USE_L10N = False
 
 USE_TZ = True
 

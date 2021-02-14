@@ -2,6 +2,7 @@
 {% load static %}
 {% block add_settings %}
     <link rel="shortcut icon" href="{% static 'TimeTable/assets/img/favicon.ico' %}" type="image/x-icon">
+    <!--suppress JSUnresolvedLibraryURL -->
     <script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" crossorigin="anonymous"></script>
     <!-- Google fonts-->
     <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet"/>
@@ -23,20 +24,20 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a class="nav-link" href="#sign_in">Создать заметку</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#edit_affair">Редактировать дело</a></li>
                 </ul>
             </div>
         </div>
     </nav>
     <!-- Masthead-->
-    <header class="masthead" id="sign_in">
+    <header class="masthead" id="edit_affair">
         <div class="container d-flex h-100 align-items-center">
             <div class="mx-auto text-center">
-                <h1 class="mx-auto my-0 text-uppercase masthead_h1_custom">Создать дело</h1>
+                <h1 class="mx-auto my-0 text-uppercase masthead_h1_custom">Редактировать дело</h1>
                 <form method="post">
                     {% csrf_token %}
                     {{ form.as_p }}
-                    <button type="submit" class="btn btn-primary btn-block">Создать</button>
+                    <button type="submit" class="btn btn-primary btn-block">Редактировать</button>
                 </form>
             </div>
         </div>

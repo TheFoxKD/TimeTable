@@ -9,7 +9,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.urls import reverse_lazy
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 
 from Schedule.forms import CreateAffairScheduleForm
 from Schedule.models import Schedule
@@ -93,6 +93,43 @@ class DetailSchedule(LoginRequiredMixin, UserPassesTestMixin, CreateView):
         context['sat_date'] = date_generated[5]
         context['sun_date'] = date_generated[6]
         return context
+
+
+class UpdateAffairSchedule(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    """
+    model = Schedule - это модель, на которой построена данная страница
+    template_name = Schedule/update_schedule.html - это HTML код, который вызывается при загрузке страницы
+    form_class = CreateAffairScheduleForm - это форма, с которой работает данная страница
+    """
+    model = Schedule
+    template_name = 'Schedule/update_schedule.html'
+    form_class = CreateAffairScheduleForm
+
+    def test_func(self):
+        """
+        Данная функция проверяет наличи доступа пользователя к данной странице. Если пользователь, который указан в url имеет запись с указанным в url id, то дать доступ,
+        если нет, то не давать
+        :return: True or False
+        :rtype:
+        """
+        try:
+            if Schedule.objects.get(user_id=self.kwargs['user_id'], pk=self.kwargs['pk']):
+                return True
+            elif self.request.user.is_staff:
+                return True
+        except Schedule.DoesNotExist:
+            if self.request.user.is_staff:
+                return True
+            else:
+                return False
+
+    def get_success_url(self):
+        """
+        Данная функция после успешного POST запроса, перенаправляет пользователя на его расписание
+        :return: Redirect на его расписание
+        :rtype:
+        """
+        return reverse_lazy('Schedule:schedule', kwargs={'user_id': self.kwargs['user_id']})
 
 
 def test(request):
