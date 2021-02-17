@@ -2,6 +2,7 @@
 {% load static %}
 {% block add_settings %}
     <link rel="shortcut icon" href="{% static 'TimeTable/assets/img/favicon.ico' %}" type="image/x-icon">
+    <!--suppress JSUnresolvedLibraryURL -->
     <script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" crossorigin="anonymous"></script>
     <!-- Google fonts-->
     <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet"/>
@@ -35,8 +36,15 @@
             <div class="mx-auto text-center">
                 <h1 class="mx-auto my-0 text-uppercase masthead_h1">TimeTablePlus</h1>
                 <h2 class="text-white-50 mx-auto mt-2 mb-5">Бесплатное расписание для школьников республики Коми</h2>
-                <a class="btn btn-primary" href="{% url 'Account:sign_up' %}">Зарегистрироваться</a>
-                <a class="btn btn-primary" href="{% url 'Account:sign_in' %}">Войти</a>
+                {% if user.is_authenticated %}
+                    <a class="btn btn-primary"
+                       href="{% url 'Schedule:schedule' request.user.id %}">Моё расписание</a>
+
+                {% else %}
+                    <a class="btn btn-primary" href="{% url 'Account:sign_up' %}">Зарегистрироваться</a>
+                    <a class="btn btn-primary" href="{% url 'Account:sign_in' %}">Войти</a>
+                {% endif %}
+
             </div>
         </div>
     </header>
@@ -62,7 +70,8 @@
 
             <!-- Featured Project Row-->
             <div class="row justify-content-center no-gutters">
-                <div class="col-lg-6"><img class="img-fluid" src="{% static 'TimeTable/assets/img/speed.jpg' %}" alt=""/></div>
+                <div class="col-lg-6"><img class="img-fluid" src="{% static 'TimeTable/assets/img/speed.jpg' %}"
+                                           alt=""/></div>
                 <div class="col-lg-6 order-lg-first">
                     <div class="bg-black text-center h-100 project">
                         <div class="d-flex h-100">
@@ -77,7 +86,8 @@
             </div>
             <!-- Project One Row-->
             <div class="row justify-content-center no-gutters mb-5 mb-lg-0">
-                <div class="col-lg-6"><img class="img-fluid" src="{% static 'TimeTable/assets/img/demo-image-01.jpg' %}" alt=""/></div>
+                <div class="col-lg-6"><img class="img-fluid" src="{% static 'TimeTable/assets/img/demo-image-01.jpg' %}"
+                                           alt=""/></div>
                 <div class="col-lg-6">
                     <div class="bg-black text-center h-100 project">
                         <div class="d-flex h-100">
@@ -92,7 +102,8 @@
             </div>
             <!-- Project Two Row-->
             <div class="row justify-content-center no-gutters">
-                <div class="col-lg-6"><img class="img-fluid" src="{% static 'TimeTable/assets/img/demo-image-02.jpg' %}" alt=""/></div>
+                <div class="col-lg-6"><img class="img-fluid" src="{% static 'TimeTable/assets/img/demo-image-02.jpg' %}"
+                                           alt=""/></div>
                 <div class="col-lg-6 order-lg-first">
                     <div class="bg-black text-center h-100 project">
                         <div class="d-flex h-100">
@@ -106,7 +117,8 @@
                 </div>
             </div>
             <div class="row justify-content-center no-gutters mb-5 mb-lg-0">
-                <div class="col-lg-6"><img class="img-fluid" src="{% static 'TimeTable/assets/img/demo-image-03.jpg' %}" alt=""/></div>
+                <div class="col-lg-6"><img class="img-fluid" src="{% static 'TimeTable/assets/img/demo-image-03.jpg' %}"
+                                           alt=""/></div>
                 <div class="col-lg-6">
                     <div class="bg-black text-center h-100 project">
                         <div class="d-flex h-100">
