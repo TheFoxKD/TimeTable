@@ -9,7 +9,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.urls import reverse_lazy
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
 from Schedule.forms import CreateAffairScheduleForm
 from Schedule.models import Schedule
@@ -57,7 +57,7 @@ class DetailSchedule(LoginRequiredMixin, UserPassesTestMixin, CreateView):
         :return: Redirect на опр. страницу
         :rtype:
         """
-        return reverse_lazy('Schedule:schedule', kwargs={'user_id': self.kwargs.pop('user_id', None)})
+        return reverse_lazy('Schedule:schedule', kwargs={'user_id': self.kwargs['user_id']})
 
     def get_context_data(self, *, object_list=None, **kwargs):
         """
@@ -107,21 +107,15 @@ class UpdateAffairSchedule(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
     def test_func(self):
         """
-        Данная функция проверяет наличи доступа пользователя к данной странице. Если пользователь, который указан в url имеет запись с указанным в url id, то дать доступ,
-        если нет, то не давать
+        Данная функция проверяет наличи доступа пользователя к данной странице.
         :return: True or False
         :rtype:
         """
-        try:
-            if Schedule.objects.get(user_id=self.kwargs['user_id'], pk=self.kwargs['pk']):
-                return True
-            elif self.request.user.is_staff:
-                return True
-        except Schedule.DoesNotExist:
-            if self.request.user.is_staff:
-                return True
-            else:
-                return False
+        obj = Schedule.objects.get(pk=self.kwargs['pk'])
+        if obj.user.id == self.request.user.id:
+            return True
+        elif self.request.user.is_staff:
+            return True
 
     def get_success_url(self):
         """
@@ -129,7 +123,36 @@ class UpdateAffairSchedule(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         :return: Redirect на его расписание
         :rtype:
         """
-        return reverse_lazy('Schedule:schedule', kwargs={'user_id': self.kwargs['user_id']})
+        return reverse_lazy('Schedule:schedule', kwargs={'user_id': self.object.user.id})
+
+
+class DeleteAffairSchedule(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    """
+    model = Schedule - это модель, на которой построена данная страница
+    template_name = Schedule/delete_schedule.html - это HTML код, который вызывается при загрузке страницы
+    """
+    model = Schedule
+    template_name = 'Schedule/delete_schedule.html'
+
+    def get_success_url(self):
+        """
+        Данная функция после успешного POST запроса, перенаправляет пользователя на его расписание
+        :return: Redirect на его расписание
+        :rtype:
+        """
+        return reverse_lazy('Schedule:schedule', kwargs={'user_id': self.object.user.id})
+
+    def test_func(self):
+        """
+        Данная функция проверяет наличи доступа пользователя к данной странице.
+        :return: True or False
+        :rtype:
+        """
+        obj = Schedule.objects.get(pk=self.kwargs['pk'])
+        if obj.user.id == self.request.user.id:
+            return True
+        elif self.request.user.is_staff:
+            return True
 
 
 def test(request):

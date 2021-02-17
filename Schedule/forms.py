@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+#  Copyright (c) 2021. TheFox
+
 from django import forms
 
 from Schedule.models import Schedule
@@ -14,7 +16,7 @@ class CreateAffairScheduleForm(forms.ModelForm):
                                label='Окончание дела')
     homework = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Домашнее задание'}), label='Домашнее задание', required=False)
     note = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Заметка'}), label='Заметка', required=False)
-    is_ready = forms.NullBooleanField(widget=forms.NullBooleanSelect(attrs={'class': 'form-control'}), label='Готово?')
+    is_ready = forms.NullBooleanField(widget=forms.NullBooleanSelect(attrs={'class': 'form-control'}), label='Готово?', required=True)
 
     class Meta:
         model = Schedule

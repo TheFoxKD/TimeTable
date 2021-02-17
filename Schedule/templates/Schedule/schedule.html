@@ -43,13 +43,27 @@
                             Расписание
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#mon">Понедельник</a></li>
-                            <li><a class="dropdown-item" href="#tue">Вторник</a></li>
-                            <li><a class="dropdown-item" href="#wed">Среда</a></li>
-                            <li><a class="dropdown-item" href="#thu">Четверг</a></li>
-                            <li><a class="dropdown-item" href="#fri">Пятница</a></li>
-                            <li><a class="dropdown-item" href="#sat">Суббота</a></li>
-                            <li><a class="dropdown-item" href="#sun">Воскресенье</a></li>
+                            <li><a class="dropdown-item" href="#mon" data-bs-toggle="collapse"
+                                   data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">Понедельник</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#tue" data-bs-toggle="collapse"
+                                   data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">Вторник</a>
+                            </li>
+                            <li><a class="dropdown-item" data-bs-toggle="collapse" data-bs-target="#collapseThree"
+                                   aria-expanded="false" aria-controls="collapseThree" href="#wed">Среда</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#thu" data-bs-toggle="collapse"
+                                   data-bs-target="#collapseFourth" aria-expanded="false"
+                                   aria-controls="collapseFourth">Четверг</a></li>
+                            <li><a class="dropdown-item" href="#fri" data-bs-toggle="collapse"
+                                   data-bs-target="#collapseFifth" aria-expanded="false" aria-controls="collapseFifth">Пятница</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#sat" data-bs-toggle="collapse"
+                                   data-bs-target="#collapseSixth" aria-expanded="false" aria-controls="collapseSixth">Суббота</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#sun" data-bs-toggle="collapse"
+                                   data-bs-target="#collapseSeventh" aria-expanded="false"
+                                   aria-controls="collapseSeventh">Воскресенье</a></li>
                             <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#createAffair"
                                    href="#">Добавить</a>
                             </li>
@@ -102,9 +116,9 @@
                                             <td>{{ obj.homework }}</td>
                                             <td>{{ obj.note }}</td>
                                             <td>{{ obj.is_ready }}</td>
-                                            <td><a href="{% url 'Schedule:update_schedule' request.user.id obj.pk %}">Редактировать</a>
+                                            <td><a href="{% url 'Schedule:update_schedule' obj.pk %}">Редактировать</a>
                                             </td>
-                                            <td><a href="#">Удалить</a></td>
+                                            <td><a href="{% url 'Schedule:delete_schedule' obj.pk %}">Удалить</a></td>
                                         </tr>
                                     {% endfor %}
 
@@ -154,7 +168,8 @@
                                             <td>{{ obj.homework }}</td>
                                             <td>{{ obj.note }}</td>
                                             <td>{{ obj.is_ready }}</td>
-                                            <td><a href="#">Редактировать</a></td>
+                                            <td><a href="{% url 'Schedule:update_schedule' obj.pk %}">Редактировать</a>
+                                            </td>
                                             <td><a href="#">Удалить</a></td>
                                         </tr>
                                     {% endfor %}
@@ -174,7 +189,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="accordion-item" id="wed">
                     <h2 class="accordion-header" id="headingThree">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
@@ -205,7 +219,8 @@
                                             <td>{{ obj.homework }}</td>
                                             <td>{{ obj.note }}</td>
                                             <td>{{ obj.is_ready }}</td>
-                                            <td><a href="#">Редактировать</a></td>
+                                            <td><a href="{% url 'Schedule:update_schedule' obj.pk %}">Редактировать</a>
+                                            </td>
                                             <td><a href="#">Удалить</a></td>
                                         </tr>
                                     {% endfor %}
@@ -255,7 +270,8 @@
                                             <td>{{ obj.homework }}</td>
                                             <td>{{ obj.note }}</td>
                                             <td>{{ obj.is_ready }}</td>
-                                            <td><a href="#">Редактировать</a></td>
+                                            <td><a href="{% url 'Schedule:update_schedule' obj.pk %}">Редактировать</a>
+                                            </td>
                                             <td><a href="#">Удалить</a></td>
                                         </tr>
                                     {% endfor %}
@@ -305,7 +321,8 @@
                                             <td>{{ obj.homework }}</td>
                                             <td>{{ obj.note }}</td>
                                             <td>{{ obj.is_ready }}</td>
-                                            <td><a href="#">Редактировать</a></td>
+                                            <td><a href="{% url 'Schedule:update_schedule' obj.pk %}">Редактировать</a>
+                                            </td>
                                             <td><a href="#">Удалить</a></td>
                                         </tr>
                                     {% endfor %}
@@ -355,7 +372,8 @@
                                             <td>{{ obj.homework }}</td>
                                             <td>{{ obj.note }}</td>
                                             <td>{{ obj.is_ready }}</td>
-                                            <td><a href="#">Редактировать</a></td>
+                                            <td><a href="{% url 'Schedule:update_schedule' obj.pk %}">Редактировать</a>
+                                            </td>
                                             <td><a href="#">Удалить</a></td>
                                         </tr>
                                     {% endfor %}
@@ -405,7 +423,8 @@
                                             <td>{{ obj.homework }}</td>
                                             <td>{{ obj.note }}</td>
                                             <td>{{ obj.is_ready }}</td>
-                                            <td><a href="#">Редактировать</a></td>
+                                            <td><a href="{% url 'Schedule:update_schedule' obj.pk %}">Редактировать</a>
+                                            </td>
                                             <td><a href="#">Удалить</a></td>
                                         </tr>
                                     {% endfor %}

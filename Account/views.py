@@ -1,6 +1,5 @@
 #  Copyright (c) 2021. TheFox
 
-from django.contrib.auth.hashers import make_password
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView
@@ -86,14 +85,14 @@ class SignInGiseo(LoginRequiredMixin, SuccessMessageMixin, FormView):
         try:
             post = Giseo.objects.get(user=self.request.user)
             post.login = form.instance.login
-            post.password = make_password(form.instance.password)
+            post.password = form.instance.password
             post.place = form.instance.place
             post.locality = form.instance.locality
             post.type_of_oo = form.instance.type_of_oo
             post.educational_organization = form.instance.educational_organization
             post.save()
         except Account.models.Giseo.DoesNotExist:
-            Giseo.objects.create(user=self.request.user, login=form.instance.login, password=make_password(form.instance.password), place=form.instance.place,
+            Giseo.objects.create(user=self.request.user, login=form.instance.login, password=form.instance.password, place=form.instance.place,
                                  locality=form.instance.locality, type_of_oo=form.instance.type_of_oo, educational_organization=form.instance.educational_organization)
 
         return super(SignInGiseo, self).form_valid(form)
