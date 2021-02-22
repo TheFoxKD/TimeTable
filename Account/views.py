@@ -2,7 +2,7 @@
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, FormView
@@ -51,6 +51,10 @@ class SignInAccount(SuccessMessageMixin, LoginView):
         :rtype:
         """
         return reverse_lazy('Schedule:schedule', kwargs={'user_id': self.request.user.id})
+
+
+class LogOutAccount(LogoutView):
+    template_name = 'Account/logout.html'
 
 
 class SignInGiseo(LoginRequiredMixin, SuccessMessageMixin, FormView):
