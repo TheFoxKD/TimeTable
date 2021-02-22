@@ -39,6 +39,7 @@
                 {% if user.is_authenticated %}
                     <a class="btn btn-primary"
                        href="{% url 'Schedule:schedule' request.user.id %}">Моё расписание</a>
+                    <a class="btn btn-primary" href="{% url 'Account:sign_in' %}">Сменить аккаун</a>
 
                 {% else %}
                     <a class="btn btn-primary" href="{% url 'Account:sign_up' %}">Зарегистрироваться</a>

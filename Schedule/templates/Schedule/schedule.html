@@ -171,7 +171,11 @@
                                             <td>{{ obj.affair }}</td>
                                             <td>{{ obj.homework }}</td>
                                             <td>{{ obj.note }}</td>
-                                            <td>{{ obj.is_ready }}</td>
+                                            {% if obj.is_ready %}
+                                                <td>Да</td>
+                                            {% else %}
+                                                <td>Нет</td>
+                                            {% endif %}
                                             <td><a href="{% url 'Schedule:update_schedule' obj.pk %}">Редактировать</a>
                                             </td>
                                             <td><a href="{% url 'Schedule:delete_schedule' obj.pk %}">Удалить</a></td>
@@ -222,7 +226,11 @@
                                             <td>{{ obj.affair }}</td>
                                             <td>{{ obj.homework }}</td>
                                             <td>{{ obj.note }}</td>
-                                            <td>{{ obj.is_ready }}</td>
+                                            {% if obj.is_ready %}
+                                                <td>Да</td>
+                                            {% else %}
+                                                <td>Нет</td>
+                                            {% endif %}
                                             <td><a href="{% url 'Schedule:update_schedule' obj.pk %}">Редактировать</a>
                                             </td>
                                             <td><a href="{% url 'Schedule:delete_schedule' obj.pk %}">Удалить</a></td>
@@ -273,7 +281,11 @@
                                             <td>{{ obj.affair }}</td>
                                             <td>{{ obj.homework }}</td>
                                             <td>{{ obj.note }}</td>
-                                            <td>{{ obj.is_ready }}</td>
+                                            {% if obj.is_ready %}
+                                                <td>Да</td>
+                                            {% else %}
+                                                <td>Нет</td>
+                                            {% endif %}
                                             <td><a href="{% url 'Schedule:update_schedule' obj.pk %}">Редактировать</a>
                                             </td>
                                             <td><a href="{% url 'Schedule:delete_schedule' obj.pk %}">Удалить</a></td>
@@ -324,7 +336,11 @@
                                             <td>{{ obj.affair }}</td>
                                             <td>{{ obj.homework }}</td>
                                             <td>{{ obj.note }}</td>
-                                            <td>{{ obj.is_ready }}</td>
+                                            {% if obj.is_ready %}
+                                                <td>Да</td>
+                                            {% else %}
+                                                <td>Нет</td>
+                                            {% endif %}
                                             <td><a href="{% url 'Schedule:update_schedule' obj.pk %}">Редактировать</a>
                                             </td>
                                             <td><a href="{% url 'Schedule:delete_schedule' obj.pk %}">Удалить</a></td>
@@ -375,7 +391,11 @@
                                             <td>{{ obj.affair }}</td>
                                             <td>{{ obj.homework }}</td>
                                             <td>{{ obj.note }}</td>
-                                            <td>{{ obj.is_ready }}</td>
+                                            {% if obj.is_ready %}
+                                                <td>Да</td>
+                                            {% else %}
+                                                <td>Нет</td>
+                                            {% endif %}
                                             <td><a href="{% url 'Schedule:update_schedule' obj.pk %}">Редактировать</a>
                                             </td>
                                             <td><a href="{% url 'Schedule:delete_schedule' obj.pk %}">Удалить</a></td>
@@ -426,7 +446,11 @@
                                             <td>{{ obj.affair }}</td>
                                             <td>{{ obj.homework }}</td>
                                             <td>{{ obj.note }}</td>
-                                            <td>{{ obj.is_ready }}</td>
+                                            {% if obj.is_ready %}
+                                                <td>Да</td>
+                                            {% else %}
+                                                <td>Нет</td>
+                                            {% endif %}
                                             <td><a href="{% url 'Schedule:update_schedule' obj.pk %}">Редактировать</a>
                                             </td>
                                             <td><a href="{% url 'Schedule:delete_schedule' obj.pk %}">Удалить</a></td>
