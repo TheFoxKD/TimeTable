@@ -28,7 +28,7 @@
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                            data-bs-toggle="dropdown"
                            aria-expanded="false">
-                            Профиль
+                            {{ name_user }}
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="{% url 'Account:sign_in_giseo' %}">Подключить
@@ -115,7 +115,11 @@
                                             <td>{{ obj.affair }}</td>
                                             <td>{{ obj.homework }}</td>
                                             <td>{{ obj.note }}</td>
-                                            <td>{{ obj.is_ready }}</td>
+                                            {% if obj.is_ready %}
+                                                <td>Да</td>
+                                            {% else %}
+                                                <td>Нет</td>
+                                            {% endif %}
                                             <td><a href="{% url 'Schedule:update_schedule' obj.pk %}">Редактировать</a>
                                             </td>
                                             <td><a href="{% url 'Schedule:delete_schedule' obj.pk %}">Удалить</a></td>

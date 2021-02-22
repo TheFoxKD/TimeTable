@@ -7,11 +7,12 @@ from selenium import webdriver
 from selenium.webdriver import ActionChains
 from selenium.webdriver.support.ui import Select
 
+
 # Это настройки, не трогай их, если ты не дибил
 time_sleep = 3
 settings = webdriver.ChromeOptions()
 settings.add_argument('headless')
-driver = webdriver.Chrome(options=settings)
+driver = webdriver.Chrome(options=settings, executable_path=r"/home/artem/PycharmProjects/TimeTable/chromedriver")
 driver.maximize_window()
 driver.get("https://giseo.rkomi.ru/about.html")
 
@@ -78,9 +79,9 @@ def parse_html(html):
 
 
 def parsing(place, town, type_school, school, login, password):
-    in_place = Select(driver.find_element_by_xpath('/html/body/div[2]/div[1]/div/div/div[2]/div[1]/div/div/div/div[3]/div/select'))
-    in_place.select_by_visible_text(place)
     try:
+        in_place = Select(driver.find_element_by_xpath('/html/body/div[2]/div[1]/div/div/div[2]/div[1]/div/div/div/div[3]/div/select'))
+        in_place.select_by_visible_text(place)
         in_town = Select(driver.find_element_by_xpath('/html/body/div[2]/div[1]/div/div/div[2]/div[1]/div/div/div/div[4]/div/select'))
         in_town.select_by_visible_text(town)
     except:
@@ -125,7 +126,9 @@ def parsing(place, town, type_school, school, login, password):
     time.sleep(time_sleep)
     # print(driver.current_url)
     html = driver.page_source
-    parse_html(html)
+    return parse_html(html)
+
+
 
 # СМТОРИ СЮДА, КУСОК ГОВНА!!! Вот это ↑ ↑ ↑ - основная функция, её нужно вызывать с этими данными входа,
 # но чтоюы их получить мне нужен user_id его у меня нет так же, как и доступа к моделям, поэтому добавить

@@ -95,6 +95,7 @@ class DetailSchedule(LoginRequiredMixin, UserPassesTestMixin, CreateView):
         context['fri_date'] = date_generated[4]
         context['sat_date'] = date_generated[5]
         context['sun_date'] = date_generated[6]
+        context['name_user'] = Schedule.user
         return context
 
 
@@ -159,8 +160,8 @@ class DeleteAffairSchedule(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 
 def test(request):
-    giseo_obj = Giseo.objects.get(user=request.user.id)
+    giseo_obj = Giseo.objects.get(user=1)
     objects = parsing(giseo_obj.place.name, giseo_obj.locality.name, giseo_obj.type_of_oo.name, giseo_obj.educational_organization.name, giseo_obj.login, giseo_obj.password)
-
+    print(objects)
     # Schedule.objects.bulk_create(sch)
     return HttpResponse('Всё ок)')
