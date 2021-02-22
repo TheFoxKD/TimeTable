@@ -7,12 +7,11 @@ from selenium import webdriver
 from selenium.webdriver import ActionChains
 from selenium.webdriver.support.ui import Select
 
-
 # Это настройки, не трогай их, если ты не дибил
 time_sleep = 3
 settings = webdriver.ChromeOptions()
 settings.add_argument('headless')
-driver = webdriver.Chrome(options=settings, executable_path=r"/home/artem/PycharmProjects/TimeTable/chromedriver")
+driver = webdriver.Chrome(options=settings)
 driver.maximize_window()
 driver.get("https://giseo.rkomi.ru/about.html")
 

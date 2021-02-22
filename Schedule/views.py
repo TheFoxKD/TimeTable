@@ -95,7 +95,7 @@ class DetailSchedule(LoginRequiredMixin, UserPassesTestMixin, CreateView):
         context['fri_date'] = date_generated[4]
         context['sat_date'] = date_generated[5]
         context['sun_date'] = date_generated[6]
-        context['name_user'] = Schedule.user
+        context['name_user'] = User.objects.get(pk=self.kwargs['user_id']).username
         return context
 
 
