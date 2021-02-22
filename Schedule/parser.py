@@ -19,7 +19,7 @@ driver.get("https://giseo.rkomi.ru/about.html")
 # Для даунов, это данные для входа в гисео
 
 data = {}
-
+time.sleep(time_sleep)
 
 def parse_html(html):
     """
