@@ -6,11 +6,12 @@ from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver import ActionChains
 from selenium.webdriver.support.ui import Select
+from pprint import pprint
 
 # Это настройки, не трогай их, если ты не дибил
 time_sleep = 3
 settings = webdriver.ChromeOptions()
-settings.add_argument('headless')
+# settings.add_argument('headless')
 driver = webdriver.Chrome(options=settings)
 driver.maximize_window()
 driver.get("https://giseo.rkomi.ru/about.html")
@@ -19,6 +20,12 @@ driver.get("https://giseo.rkomi.ru/about.html")
 
 data = {}
 time.sleep(time_sleep)
+place = 'Городской округ Сыктывкар'
+town = 'Сыктывкар, г.'
+type_school = 'Общеобразовательная'
+school = 'МАОУ "Технологический лицей"'
+login = 'СухановА2'
+password = '290483'
 
 def parse_html(html):
     """
@@ -72,9 +79,9 @@ def parse_html(html):
                 time_start = str(les.find('div').text[:5]) + ':00'
                 time_finish = str(les.find('div').text[8:13]) + ':00'
                 # print(f'{name_les.text}   start: {time_start} finish: {time_finish} HW: {hw}')
-                data_local = {'date': date_fin, 'affair': name_les.text, 'homework': hw, 'time_end': time_finish, 'time_start': time_start}
+                data_local = {'date': date, 'affair': name_les.text, 'homework': hw, 'time_end': time_finish, 'time_start': time_start}
                 data[i] = data_local
-    return data
+    return html
 
 
 def parsing(place, town, type_school, school, login, password):
@@ -112,6 +119,7 @@ def parsing(place, town, type_school, school, login, password):
     #     pass
 
     # --------------------------------------------------------------------------------------------------------------------------------------------
+    time.sleep(time_sleep)
 
     diary = driver.find_element_by_xpath('/html/body/div[1]/div[4]/nav/ul/li[4]/a')
     but = driver.find_element_by_xpath('/html/body/div[1]/div[4]/nav/ul/li[4]/ul/li[1]/a')
@@ -119,16 +127,17 @@ def parsing(place, town, type_school, school, login, password):
     Hover = ActionChains(driver).move_to_element(diary)
     Hover.perform()
     but.click()
-
+    driver.find_element_by_xpath('/html/body/div[2]/div[1]/div/div/div/div[2]/div/div[2]/div/div/div[2]/div[1]/div[2]/div[1]/i').click()
     # ---------------------------------------------------------------------------------------------------------------------------------------------
     # driver.implicitly_wait(5)
     time.sleep(time_sleep)
     # print(driver.current_url)
     html = driver.page_source
-    return parse_html(html)
+    print(html)
+    # return parse_html(html)
 
 
-
+parsing(place, town, type_school, school, login, password)
 # СМТОРИ СЮДА, КУСОК ГОВНА!!! Вот это ↑ ↑ ↑ - основная функция, её нужно вызывать с этими данными входа,
 # но чтоюы их получить мне нужен user_id его у меня нет так же, как и доступа к моделям, поэтому добавить
 # данные после парсинга я не могу в бд, дебил. Данные после парсинга нужно
