@@ -160,7 +160,7 @@ class DeleteAffairSchedule(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 
 def test(request):
-    giseo_obj = Giseo.objects.get(user=)
+    giseo_obj = Giseo.objects.get(user=request.user.id)
     objects = parsing(giseo_obj.place.name, giseo_obj.locality.name, giseo_obj.type_of_oo.name, giseo_obj.educational_organization.name, giseo_obj.login, giseo_obj.password)
     print(objects)
     # Schedule.objects.bulk_create(sch)
