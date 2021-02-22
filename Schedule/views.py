@@ -11,8 +11,10 @@ from django.http import HttpResponse
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
+from Account.models import Giseo
 from Schedule.forms import CreateAffairScheduleForm
 from Schedule.models import Schedule
+from Schedule.parser import parsing
 
 
 class DetailSchedule(LoginRequiredMixin, UserPassesTestMixin, CreateView):
@@ -71,6 +73,7 @@ class DetailSchedule(LoginRequiredMixin, UserPassesTestMixin, CreateView):
         :rtype:
         """
         context = super(DetailSchedule, self).get_context_data(**kwargs)
+
         date = datetime.date.today()
         start_week = date - datetime.timedelta(date.weekday())
         end_week = start_week + datetime.timedelta(7)
@@ -156,11 +159,8 @@ class DeleteAffairSchedule(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 
 def test(request):
-    # local = 177
-    # sch = [Type_of_oo
-    #        (locality_id=local,
-    #         name='Дошкольное образование'
-    #         ),
-    #        ]
-    # Type_of_oo.objects.bulk_create(sch)
+    giseo_obj = Giseo.objects.get(user=request.user.id)
+    objects = parsing(giseo_obj.place.name, giseo_obj.locality.name, giseo_obj.type_of_oo.name, giseo_obj.educational_organization.name, giseo_obj.login, giseo_obj.password)
+
+    # Schedule.objects.bulk_create(sch)
     return HttpResponse('Всё ок)')
