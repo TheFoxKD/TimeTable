@@ -6,7 +6,6 @@ from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver import ActionChains
 from selenium.webdriver.support.ui import Select
-from pprint import pprint
 
 DEBUG = False  # режим Debug, в конечном проекте использовать значение False
 TIME_SLEEP = 3  # время сна перед действиями
@@ -54,6 +53,7 @@ def date_reformat(date_old):
         month = '11'
     if date_old.find('дек') > 0:
         month = '12'
+    # noinspection PyUnboundLocalVariable
     return month
 
 
@@ -89,8 +89,8 @@ def parse_html(html):
         year = date[-7:-3]
         day_ = date[4:6]
         month = date_reformat(date)
-        print(month)
-        print(date)
+        # print(month)
+        # print(date)
         date_fin = f'{year}-{month}-{day_}'
         for i in range(len(work)):
             les = work[i].find_all('td')[1]
@@ -189,12 +189,5 @@ if __name__ == "__main__":
     которые описаны ниже.
     """
     time.sleep(TIME_SLEEP)
-    place = 'Городской округ Сыктывкар'
-    town = 'Сыктывкар, г.'
-    type_school = 'Общеобразовательная'
-    school = 'МАОУ "Технологический лицей"'
-    login = 'СухановА2'
-    password = '290483'
 
-    pprint(parsing(place, town, type_school, school, login, password))
     driver.quit()

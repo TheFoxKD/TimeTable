@@ -10,6 +10,7 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
+from selenium.common.exceptions import NoSuchElementException
 
 from Account.models import Giseo
 from Schedule.forms import CreateAffairScheduleForm
@@ -73,6 +74,23 @@ class DetailSchedule(LoginRequiredMixin, UserPassesTestMixin, CreateView):
         :rtype:
         """
         context = super(DetailSchedule, self).get_context_data(**kwargs)
+        try:
+            giseo_obj = Giseo.objects.get(user_id=self.kwargs['user_id'])
+            objects = parsing(giseo_obj.place.name, giseo_obj.locality.name, giseo_obj.type_of_oo.name, giseo_obj.educational_organization.name, giseo_obj.login,
+                              giseo_obj.password)
+            sch = []
+            for i in objects:
+                sch.append(Schedule(user_id=self.kwargs['user_id'], time_start=i['time_start'], time_end=i['time_end'], date=i['date'], affair=i['affair'], homework=i['homework']))
+            try:
+                if Schedule.objects.get(user_id=self.kwargs['user_id'], date=objects[0]['date'], affair=objects[0]['affair'], time_start=objects[0]['time_start'],
+                                        time_end=objects[0]['time_end'], homework=objects[0]['homework']):
+                    return True
+                else:
+                    Schedule.objects.bulk_create(sch)
+            except Schedule.DoesNotExist:
+                Schedule.objects.bulk_create(sch)
+        except NoSuchElementException:
+            return HttpResponse('Перезагрузите страницу ещё раз, пожалуйста')
 
         date = datetime.date.today()
         start_week = date - datetime.timedelta(date.weekday())
@@ -157,11 +175,3 @@ class DeleteAffairSchedule(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
             return True
         elif self.request.user.is_staff:
             return True
-
-
-def test(request):
-    giseo_obj = Giseo.objects.get(user=request.user.id)
-    objects = parsing(giseo_obj.place.name, giseo_obj.locality.name, giseo_obj.type_of_oo.name, giseo_obj.educational_organization.name, giseo_obj.login, giseo_obj.password)
-    print(objects)
-    # Schedule.objects.bulk_create(sch)
-    return HttpResponse('Всё ок)')
