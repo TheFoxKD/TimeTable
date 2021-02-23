@@ -29,29 +29,30 @@ def date_reformat(date_old):
     :param date_old: дата старого формата (буквами) типа string
     :return: дата нвого формата (порядковым номером) типа string
     """
-    if date_old.find('янв'):
+
+    if date_old.find('янв') > 0:
         month = '01'
-    if date_old.find('фев'):
+    if date_old.find('фев') > 0:
         month = '02'
-    if date_old.find('март'):
+    if date_old.find('март') > 0:
         month = '03'
-    if date_old.find('апр'):
+    if date_old.find('апр') > 0:
         month = '04'
-    if date_old.find('мая'):
+    if date_old.find('мая') > 0:
         month = '05'
-    if date_old.find('июн'):
+    if date_old.find('июн') > 0:
         month = '06'
-    if date_old.find('июл'):
+    if date_old.find('июл') > 0:
         month = '07'
-    if date_old.find('авг'):
+    if date_old.find('авг') > 0:
         month = '08'
-    if date_old.find('сен'):
+    if date_old.find('сен') > 0:
         month = '09'
-    if date_old.find('окт'):
+    if date_old.find('окт') > 0:
         month = '10'
-    if date_old.find('ноя'):
+    if date_old.find('ноя') > 0:
         month = '11'
-    if date_old.find('дек'):
+    if date_old.find('дек') > 0:
         month = '12'
     return month
 
@@ -87,7 +88,10 @@ def parse_html(html):
         work = days[y].find_all('tr', class_='ng-scope')
         year = date[-7:-3]
         day_ = date[4:6]
-        date_fin = f'{year}-{date_reformat(date)}-{day_}'
+        month = date_reformat(date)
+        print(month)
+        print(date)
+        date_fin = f'{year}-{month}-{day_}'
         for i in range(len(work)):
             les = work[i].find_all('td')[1]
             name_les = les.find('a')
@@ -168,8 +172,8 @@ def parsing(place, town, type_school, school, login, password):
     Hover = ActionChains(driver).move_to_element(diary)
     Hover.perform()
     but.click()
-    driver.find_element_by_xpath(
-        '/html/body/div[2]/div[1]/div/div/div/div[2]/div/div[2]/div/div/div[2]/div[1]/div[2]/div[1]/i').click()
+    # driver.find_element_by_xpath(
+    #    '/html/body/div[2]/div[1]/div/div/div/div[2]/div/div[2]/div/div/div[2]/div[1]/div[2]/div[1]/i').click()
     # ---------------------------------------------------------------------------------------------------------------------------------------------
     # driver.implicitly_wait(5)
     time.sleep(TIME_SLEEP)
