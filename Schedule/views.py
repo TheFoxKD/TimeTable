@@ -7,7 +7,6 @@ import datetime
 
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
-from django.http import HttpResponse
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from selenium.common.exceptions import NoSuchElementException
@@ -84,13 +83,13 @@ class DetailSchedule(LoginRequiredMixin, UserPassesTestMixin, CreateView):
             try:
                 if Schedule.objects.get(user_id=self.kwargs['user_id'], date=objects[0]['date'], affair=objects[0]['affair'], time_start=objects[0]['time_start'],
                                         time_end=objects[0]['time_end'], homework=objects[0]['homework']):
-                    return True
+                    pass
                 else:
                     Schedule.objects.bulk_create(sch)
             except Schedule.DoesNotExist:
                 Schedule.objects.bulk_create(sch)
         except NoSuchElementException:
-            return HttpResponse('Перезагрузите страницу ещё раз, пожалуйста')
+            pass
 
         date = datetime.date.today()
         start_week = date - datetime.timedelta(date.weekday())
