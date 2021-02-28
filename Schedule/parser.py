@@ -28,7 +28,6 @@ def date_reformat(date_old):
     :param date_old: дата старого формата (буквами) типа string
     :return: дата нвого формата (порядковым номером) типа string
     """
-
     if date_old.find('янв') > 0:
         month = '01'
     if date_old.find('фев') > 0:
@@ -53,7 +52,6 @@ def date_reformat(date_old):
         month = '11'
     if date_old.find('дек') > 0:
         month = '12'
-    # noinspection PyUnboundLocalVariable
     return month
 
 
