@@ -30,27 +30,27 @@ def date_reformat(date_old):
     """
     if date_old.find('янв') > 0:
         month = '01'
-    if date_old.find('фев') > 0:
+    elif date_old.find('февр') > 0:
         month = '02'
-    if date_old.find('март') > 0:
+    elif date_old.find('мар') > 0:
         month = '03'
-    if date_old.find('апр') > 0:
+    elif date_old.find('апр') > 0:
         month = '04'
-    if date_old.find('мая') > 0:
+    elif date_old.find('мая') > 0:
         month = '05'
-    if date_old.find('июн') > 0:
+    elif date_old.find('июня') > 0:
         month = '06'
-    if date_old.find('июл') > 0:
+    elif date_old.find('июля') > 0:
         month = '07'
-    if date_old.find('авг') > 0:
+    elif date_old.find('авг') > 0:
         month = '08'
-    if date_old.find('сен') > 0:
+    elif date_old.find('сент') > 0:
         month = '09'
-    if date_old.find('окт') > 0:
+    elif date_old.find('окт') > 0:
         month = '10'
-    if date_old.find('ноя') > 0:
+    elif date_old.find('нояб') > 0:
         month = '11'
-    if date_old.find('дек') > 0:
+    elif date_old.find('дек') > 0:
         month = '12'
     return month
 
@@ -81,11 +81,14 @@ def parse_html(html):
         print(len(days))
     for y in range(len(days)):
         date = days[y].find('span', class_='ng-binding').text
+        print(date)
         if DEBUG:
             print(date)
         work = days[y].find_all('tr', class_='ng-scope')
         year = date[-7:-3]
-        day_ = date[4:6]
+        day_ = date[4:6].replace(' ', '')
+        if len(day_) == 1:
+            day_ = "0" + day_
         month = date_reformat(date)
         # print(month)
         # print(date)
@@ -93,9 +96,9 @@ def parse_html(html):
         for i in range(len(work)):
             les = work[i].find_all('td')[1]
             name_les = les.find('a')
-            if name_les != None:
+            if name_les is not None:
                 hw = work[i].find('a', class_='ng-binding ng-scope')
-                if hw != None:
+                if hw is not None:
                     hw = hw.text
                 else:
                     hw = ''
@@ -146,7 +149,8 @@ def parsing(place, town, type_school, school, login, password):
         '/html/body/div[2]/div[1]/div/div/div[2]/div[1]/div/div/div/div[9]/input')
     in_password.send_keys(password)
     sing_in = driver.find_element_by_xpath('/html/body/div[2]/div[1]/div/div/div[2]/div[1]/div/div/div/div[12]/a/span')
-    sing_in.click()
+    # sing_in.click()
+    driver.execute_script("arguments[0].click();", sing_in)
     driver.implicitly_wait(5)
     try:
         driver.find_element_by_xpath(
