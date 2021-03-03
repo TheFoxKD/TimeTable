@@ -81,7 +81,6 @@ def parse_html(html):
         print(len(days))
     for y in range(len(days)):
         date = days[y].find('span', class_='ng-binding').text
-        print(date)
         if DEBUG:
             print(date)
         work = days[y].find_all('tr', class_='ng-scope')

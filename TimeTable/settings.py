@@ -30,7 +30,7 @@ SECRET_KEY = os.getenv('KEY')
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'www.mysite.com']
 
 # Application definition
 
@@ -131,9 +131,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # For smart select
 USE_DJANGO_JQUERY = True
 # Caches
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
-        'LOCATION': os.path.join(BASE_DIR, 'caches'),
-    }
-}
+# CACHES = {
+#     'default': {
+#         'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+#         'LOCATION': os.path.join(BASE_DIR, 'caches'),
+#     }
+# }
