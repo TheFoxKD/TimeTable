@@ -35,7 +35,6 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'www.mysite.com']
 # Application definition
 
 INSTALLED_APPS = [
-
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -131,9 +130,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # For smart select
 USE_DJANGO_JQUERY = True
 # Caches
-# CACHES = {
-#     'default': {
-#         'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
-#         'LOCATION': os.path.join(BASE_DIR, 'caches'),
-#     }
-# }
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': os.path.join(BASE_DIR, 'caches'),
+        'TIMEOUT': 0,
+    }
+}

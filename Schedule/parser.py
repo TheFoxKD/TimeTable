@@ -1,5 +1,5 @@
 #  Copyright (c) 2021. TheFox
-
+import os
 import time
 
 from bs4 import BeautifulSoup
@@ -9,11 +9,11 @@ from selenium.webdriver.support.ui import Select
 
 DEBUG = False  # режим Debug, в конечном проекте использовать значение False
 TIME_SLEEP = 3  # время сна перед действиями
-
+CHROME_BASE = os.getcwd()
 settings = webdriver.ChromeOptions()
 if not DEBUG:
     settings.add_argument('headless')  # аргумент отвечает за запуск окна в скрытом режиме
-driver = webdriver.Chrome(options=settings)
+driver = webdriver.Chrome(options=settings, executable_path=os.path.join(CHROME_BASE, 'chromedriver.exe'))
 driver.maximize_window()
 driver.get("https://giseo.rkomi.ru/about.html")
 
@@ -181,6 +181,7 @@ def parsing(place, town, type_school, school, login, password):
     # print(driver.current_url)
     html = driver.page_source
     # print(html)
+
     return parse_html(html)
 
 
@@ -190,5 +191,5 @@ if __name__ == "__main__":
     которые описаны ниже.
     """
     time.sleep(TIME_SLEEP)
-
+    # parsing(place='Городской округ Сыктывкар', town='Сыктывкар, г.', type_school='Общеобразовательная', school='МАОУ "Технологический лицей"', login='Криштопа', password='576789')
     driver.quit()

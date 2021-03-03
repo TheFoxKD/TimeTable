@@ -5,12 +5,12 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <link rel="shortcut icon" href="{% static 'TimeTable/assets/img/favicon.ico' %}" type="image/x-icon">
     {#Подключение css от bs5#}
     <link href="{% static 'TimeTable/css/bootstrap.css' %}" rel="stylesheet" crossorigin="anonymous">
-{% block add_settings %}
+    {% block add_settings %}
 
-{% endblock %}
+    {% endblock %}
     <title>
         {#Блок для заголовка#}
         {% block title %}

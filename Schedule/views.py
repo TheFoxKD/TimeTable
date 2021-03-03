@@ -7,6 +7,7 @@ import datetime
 
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
+from django.db import IntegrityError
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from selenium.common.exceptions import NoSuchElementException
@@ -78,7 +79,7 @@ class DetailSchedule(LoginRequiredMixin, UserPassesTestMixin, CreateView):
             objects = parsing(giseo_obj.place.name, giseo_obj.locality.name, giseo_obj.type_of_oo.name, giseo_obj.educational_organization.name, giseo_obj.login,
                               giseo_obj.password)
             try:
-                count_model = Schedule.objects.all().last().pk + 1
+                count_model = Schedule.objects.all().order_by('pk').last().pk + 1
             except AttributeError as er:
                 count_model = 1
                 print(f'Error:{er}')
@@ -100,6 +101,8 @@ class DetailSchedule(LoginRequiredMixin, UserPassesTestMixin, CreateView):
         except UnboundLocalError as er:
             print(f'Error:{er}')
         except Giseo.DoesNotExist as er:
+            print(f'Error:{er}')
+        except IntegrityError as er:
             print(f'Error:{er}')
         date = datetime.date.today()
         start_week = date - datetime.timedelta(date.weekday())
