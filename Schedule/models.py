@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+
+#  Copyright (c) 2021. TheFox
+
 from django.contrib.auth.models import User
 from django.db import models
 
@@ -21,7 +24,7 @@ class Schedule(models.Model):
     #     return reverse('Schedule:schedule', kwargs={'user_id': self.user_id})
 
     def __str__(self):
-        return f"{self.user.username} - расписание"
+        return f"{self.pk}-{self.user.username}-{self.affair}"
 
     class Meta:
         managed = True

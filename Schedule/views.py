@@ -77,20 +77,30 @@ class DetailSchedule(LoginRequiredMixin, UserPassesTestMixin, CreateView):
             giseo_obj = Giseo.objects.get(user_id=self.kwargs['user_id'])
             objects = parsing(giseo_obj.place.name, giseo_obj.locality.name, giseo_obj.type_of_oo.name, giseo_obj.educational_organization.name, giseo_obj.login,
                               giseo_obj.password)
+            try:
+                count_model = Schedule.objects.all().last().pk + 1
+            except AttributeError as er:
+                count_model = 1
+                print(f'Error:{er}')
             sch = []
             for i in objects:
-                sch.append(Schedule(user_id=self.kwargs['user_id'], time_start=i['time_start'], time_end=i['time_end'], date=i['date'], affair=i['affair'], homework=i['homework']))
-            try:
-                if Schedule.objects.get(user_id=self.kwargs['user_id'], date=objects[0]['date'], affair=objects[0]['affair'], time_start=objects[0]['time_start'],
-                                        time_end=objects[0]['time_end'], homework=objects[0]['homework']):
-                    pass
-                else:
-                    Schedule.objects.bulk_create(sch)
-            except Schedule.DoesNotExist:
+                sch.append(Schedule(pk=count_model, user_id=self.kwargs['user_id'], time_start=i['time_start'], time_end=i['time_end'], date=i['date'], affair=i['affair'],
+                                    homework=i['homework']))
+                count_model += 1
+            if Schedule.objects.filter(user_id=self.kwargs['user_id'], date=objects[0]['date'], affair=objects[0]['affair'], time_start=objects[0]['time_start'],
+                                       time_end=objects[0]['time_end'], homework=objects[0]['homework']).exists():
+                print('есть')
+                # for i in sch:
+                # Schedule.objects.bulk_update(sch, ('time_start', 'time_end', 'date', 'affair', 'homework'))
+            else:
                 Schedule.objects.bulk_create(sch)
-        except NoSuchElementException:
-            pass
-
+                pass
+        except NoSuchElementException as er:
+            print(f'Error:{er}')
+        except UnboundLocalError as er:
+            print(f'Error:{er}')
+        except Giseo.DoesNotExist as er:
+            print(f'Error:{er}')
         date = datetime.date.today()
         start_week = date - datetime.timedelta(date.weekday())
         end_week = start_week + datetime.timedelta(7)
