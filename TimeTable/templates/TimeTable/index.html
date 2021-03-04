@@ -14,7 +14,7 @@
 
 {% block content %}
     <!-- Navigation-->
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav" style="background-color: #131313; height: 20px">
         <div class="container">
             <a class="navbar-brand" href="#page-top">TimeTablePlus</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
@@ -64,8 +64,8 @@
     <!-- Projects-->
     <section class="projects-section bg-light" id="projects">
 
-        <div class="container">
-            <h1 class="text-center"><b>Возможности</b></h1>
+        <div class="container" style="color: #0dcaf0">
+            <h2 class="text-white mb-4">Возможности<h2>
 
             <!-- Featured Project Row-->
             <div class="row justify-content-center no-gutters">
@@ -75,7 +75,7 @@
                     <div class="bg-black text-center h-100 project">
                         <div class="d-flex h-100">
                             <div class="project-text w-100 my-auto text-center text-lg-right">
-                                <h4 class="text-white">Информация о погоде</h4>
+                                <h4 class="text-white">Синхронизация с giseo.rkomi.ru</h4>
                                 <p class="mb-0 text-white-50"></p>
                                 <hr class="d-none d-lg-block mb-0 mr-0"/>
                             </div>
@@ -100,36 +100,7 @@
                 </div>
             </div>
             <!-- Project Two Row-->
-            <div class="row justify-content-center no-gutters">
-                <div class="col-lg-6"><img class="img-fluid" src="{% static 'TimeTable/assets/img/demo-image-02.jpg' %}"
-                                           alt=""/></div>
-                <div class="col-lg-6 order-lg-first">
-                    <div class="bg-black text-center h-100 project">
-                        <div class="d-flex h-100">
-                            <div class="project-text w-100 my-auto text-center text-lg-right">
-                                <h4 class="text-white">Информация о погоде</h4>
-                                <p class="mb-0 text-white-50"></p>
-                                <hr class="d-none d-lg-block mb-0 mr-0"/>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row justify-content-center no-gutters mb-5 mb-lg-0">
-                <div class="col-lg-6"><img class="img-fluid" src="{% static 'TimeTable/assets/img/demo-image-03.jpg' %}"
-                                           alt=""/></div>
-                <div class="col-lg-6">
-                    <div class="bg-black text-center h-100 project">
-                        <div class="d-flex h-100">
-                            <div class="project-text w-100 my-auto text-center text-lg-left">
-                                <h4 class="text-white">Оповещение об актированных днях</h4>
-                                <p class="mb-0 text-white-50"></p>
-                                <hr class="d-none d-lg-block mb-0 ml-0"/>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
         </div>
 
     </section>
