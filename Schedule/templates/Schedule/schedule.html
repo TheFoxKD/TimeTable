@@ -45,25 +45,26 @@
                             Расписание
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#mon" data-bs-toggle="collapse"
+                            <li><a class="dropdown-item scroll-to" href="#mon" data-bs-toggle="collapse"
                                    data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">Понедельник</a>
                             </li>
-                            <li><a class="dropdown-item" href="#tue" data-bs-toggle="collapse"
+                            <li><a class="dropdown-item scroll-to" href="#tue" data-bs-toggle="collapse"
                                    data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">Вторник</a>
                             </li>
-                            <li><a class="dropdown-item" data-bs-toggle="collapse" data-bs-target="#collapseThree"
+                            <li><a class="dropdown-item scroll-to" data-bs-toggle="collapse"
+                                   data-bs-target="#collapseThree"
                                    aria-expanded="false" aria-controls="collapseThree" href="#wed">Среда</a>
                             </li>
-                            <li><a class="dropdown-item" href="#thu" data-bs-toggle="collapse"
+                            <li><a class="dropdown-item scroll-to" href="#thu" data-bs-toggle="collapse"
                                    data-bs-target="#collapseFourth" aria-expanded="false"
                                    aria-controls="collapseFourth">Четверг</a></li>
-                            <li><a class="dropdown-item" href="#fri" data-bs-toggle="collapse"
+                            <li><a class="dropdown-item scroll-to" href="#fri" data-bs-toggle="collapse"
                                    data-bs-target="#collapseFifth" aria-expanded="false" aria-controls="collapseFifth">Пятница</a>
                             </li>
-                            <li><a class="dropdown-item" href="#sat" data-bs-toggle="collapse"
+                            <li><a class="dropdown-item scroll-to" href="#sat" data-bs-toggle="collapse"
                                    data-bs-target="#collapseSixth" aria-expanded="false" aria-controls="collapseSixth">Суббота</a>
                             </li>
-                            <li><a class="dropdown-item" href="#sun" data-bs-toggle="collapse"
+                            <li><a class="dropdown-item scroll-to" href="#sun" data-bs-toggle="collapse"
                                    data-bs-target="#collapseSeventh" aria-expanded="false"
                                    aria-controls="collapseSeventh">Воскресенье</a></li>
                             <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#createAffair"
@@ -114,7 +115,9 @@
                                     <tbody>
                                     {% for obj in mon %}
                                         <tr>
-                                            <td>{{ obj.affair }}</td>
+                                            <td><p>{{ obj.affair }}</p>
+                                                <p>({{ obj.time_start|date:"G:i" }} - {{ obj.time_end|date:"G:i" }})</p>
+                                            </td>
                                             <td>{{ obj.homework }}</td>
                                             <td>{{ obj.note }}</td>
                                             {% if obj.is_ready %}
@@ -170,7 +173,9 @@
                                     <tbody>
                                     {% for obj in tue %}
                                         <tr>
-                                            <td>{{ obj.affair }}</td>
+                                            <td><p>{{ obj.affair }}</p>
+                                                <p>({{ obj.time_start|date:"G:i" }} - {{ obj.time_end|date:"G:i" }})</p>
+                                            </td>
                                             <td>{{ obj.homework }}</td>
                                             <td>{{ obj.note }}</td>
                                             {% if obj.is_ready %}
@@ -225,7 +230,9 @@
                                     <tbody>
                                     {% for obj in wed %}
                                         <tr>
-                                            <td>{{ obj.affair }}</td>
+                                            <td><p>{{ obj.affair }}</p>
+                                                <p>({{ obj.time_start|date:"G:i" }} - {{ obj.time_end|date:"G:i" }})</p>
+                                            </td>
                                             <td>{{ obj.homework }}</td>
                                             <td>{{ obj.note }}</td>
                                             {% if obj.is_ready %}
@@ -280,7 +287,9 @@
                                     <tbody>
                                     {% for obj in thu %}
                                         <tr>
-                                            <td>{{ obj.affair }}</td>
+                                            <td><p>{{ obj.affair }}</p>
+                                                <p>({{ obj.time_start|date:"G:i" }} - {{ obj.time_end|date:"G:i" }})</p>
+                                            </td>
                                             <td>{{ obj.homework }}</td>
                                             <td>{{ obj.note }}</td>
                                             {% if obj.is_ready %}
@@ -335,7 +344,9 @@
                                     <tbody>
                                     {% for obj in fri %}
                                         <tr>
-                                            <td>{{ obj.affair }}</td>
+                                            <td><p>{{ obj.affair }}</p>
+                                                <p>({{ obj.time_start|date:"G:i" }} - {{ obj.time_end|date:"G:i" }})</p>
+                                            </td>
                                             <td>{{ obj.homework }}</td>
                                             <td>{{ obj.note }}</td>
                                             {% if obj.is_ready %}
@@ -390,7 +401,9 @@
                                     <tbody>
                                     {% for obj in sat %}
                                         <tr>
-                                            <td>{{ obj.affair }}</td>
+                                            <td><p>{{ obj.affair }}</p>
+                                                <p>({{ obj.time_start|date:"G:i" }} - {{ obj.time_end|date:"G:i" }})</p>
+                                            </td>
                                             <td>{{ obj.homework }}</td>
                                             <td>{{ obj.note }}</td>
                                             {% if obj.is_ready %}
@@ -445,7 +458,9 @@
                                     <tbody>
                                     {% for obj in sun %}
                                         <tr>
-                                            <td>{{ obj.affair }}</td>
+                                            <td><p>{{ obj.affair }}</p>
+                                                <p>({{ obj.time_start|date:"G:i" }} - {{ obj.time_end|date:"G:i" }})</p>
+                                            </td>
                                             <td>{{ obj.homework }}</td>
                                             <td>{{ obj.note }}</td>
                                             {% if obj.is_ready %}
@@ -506,4 +521,23 @@
     </footer>
 {% endblock %}
 <!-- Core theme JS-->
-<script src="{% static 'TimeTable/js/scripts.js' %}"></script>
+
+{% block script %}
+    <script src="{% static 'TimeTable/js/scripts.js' %}"></script>
+    <script type="text/javascript">
+        const anchors = document.querySelectorAll('a.scroll-to')
+
+        for (let anchor of anchors) {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault()
+
+                const blockID = anchor.getAttribute('href')
+
+                document.querySelector(blockID).scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                })
+            })
+        }
+    </script>
+{% endblock %}
