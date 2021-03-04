@@ -9,7 +9,8 @@ from TimeTable import settings
 
 
 class CreateAffairScheduleForm(forms.ModelForm):
-    date = forms.DateField(widget=forms.DateInput(attrs={'class': 'form-control', 'placeholder': 'Дата', 'type': 'date'}), label='Дата', input_formats=settings.DATE_INPUT_FORMATS)
+    date = forms.DateField(widget=forms.DateInput(attrs={'class': 'form-control', 'placeholder': 'Дата', 'type': 'date'}), label='Дата',
+                           input_formats=settings.DATE_INPUT_FORMATS)
     affair = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Дело|Предмет'}), label='Дело|Предмет')
     time_start = forms.TimeField(widget=forms.TimeInput(attrs={'class': 'form-control', 'placeholder': 'Начало дела', 'type': 'time'}),
                                  label='Начало дела')

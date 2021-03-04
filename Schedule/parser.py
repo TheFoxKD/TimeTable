@@ -13,7 +13,7 @@ CHROME_BASE = os.getcwd()
 settings = webdriver.ChromeOptions()
 if not DEBUG:
     settings.add_argument('headless')  # аргумент отвечает за запуск окна в скрытом режиме
-driver = webdriver.Chrome(options=settings, executable_path=r'C:\Users\artem\PycharmProjects\TimeTable\chromedriver.exe')
+driver = webdriver.Chrome(options=settings, executable_path=os.path.join(CHROME_BASE, 'chromedriver.exe'))
 driver.maximize_window()
 driver.get("https://giseo.rkomi.ru/about.html")
 
