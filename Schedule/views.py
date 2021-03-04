@@ -95,7 +95,6 @@ class DetailSchedule(LoginRequiredMixin, UserPassesTestMixin, CreateView):
                 # Schedule.objects.bulk_update(sch, ('time_start', 'time_end', 'date', 'affair', 'homework'))
             else:
                 Schedule.objects.bulk_create(sch)
-                pass
         except NoSuchElementException as er:
             print(f'Error:{er}')
         except UnboundLocalError as er:

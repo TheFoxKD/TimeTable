@@ -110,8 +110,8 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-DATE_FORMAT = "Y F d"
-DATETIME_FORMAT = 'j F Y г. G:i'
+DATE_FORMAT = ("%Y-%m-%d",)
+DATETIME_FORMAT = ('%j %F %Y г. %G:%i',)
 
 DATE_INPUT_FORMATS = (
     '%Y-%m-%d', '%m/%d/%Y', '%m/%d/%y',  # '2006-10-25', '10/25/2006', '10/25/06'
@@ -141,7 +141,7 @@ TIME_ZONE = 'Europe/Moscow'
 
 USE_I18N = True
 
-USE_L10N = False
+USE_L10N = True
 
 USE_TZ = True
 

@@ -124,6 +124,7 @@ def parsing(place, town, type_school, school, login, password):
     :param password: пароль из ЭД
     :return: html код старницы ЭЛ дневника
     """
+    time.sleep(TIME_SLEEP)
     try:
         in_place = Select(driver.find_element_by_xpath(
             '/html/body/div[2]/div[1]/div/div/div[2]/div[1]/div/div/div/div[3]/div/select'))
@@ -133,6 +134,7 @@ def parsing(place, town, type_school, school, login, password):
         in_town.select_by_visible_text(town)
     except:
         pass
+
     in_type_school = Select(
         driver.find_element_by_xpath('/html/body/div[2]/div[1]/div/div/div[2]/div[1]/div/div/div/div[5]/div/select'))
     in_type_school.select_by_visible_text(type_school)
@@ -150,7 +152,7 @@ def parsing(place, town, type_school, school, login, password):
     sing_in = driver.find_element_by_xpath('/html/body/div[2]/div[1]/div/div/div[2]/div[1]/div/div/div/div[12]/a/span')
     # sing_in.click()
     driver.execute_script("arguments[0].click();", sing_in)
-    driver.implicitly_wait(5)
+    time.sleep(TIME_SLEEP)
     try:
         driver.find_element_by_xpath(
             '/html/body/div[1]/div/div/div/div/div[4]/div/div/div/div/button[2]/span[2]').click()
