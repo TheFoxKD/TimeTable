@@ -124,6 +124,7 @@ def parsing(place, town, type_school, school, login, password):
     :param password: пароль из ЭД
     :return: html код старницы ЭЛ дневника
     """
+    driver.get("https://giseo.rkomi.ru/about.html")
     time.sleep(TIME_SLEEP)
     try:
         in_place = Select(driver.find_element_by_xpath(

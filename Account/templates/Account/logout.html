@@ -41,4 +41,7 @@
     </footer>
 {% endblock %}
 <!-- Core theme JS-->
-<script src="{% static 'TimeTable/js/scripts.js' %}"></script>
+{% block script %}
+    <script src="{% static 'TimeTable/js/scripts.js' %}"></script>
+{% endblock %}
+

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2021. TheFox
+ */
+
 @charset "UTF-8";
 /*!
 * Start Bootstrap - Grayscale v6.0.3 (https://startbootstrap.com/theme/grayscale)
@@ -4664,7 +4668,7 @@ input[type=button].btn-block {
 }
 
 .navbar-light .navbar-brand {
-    color: rgba(0, 0, 0, 0.9);
+    color: rgba(255, 0, 0, 0.9);
 }
 
 .navbar-light .navbar-brand:hover, .navbar-light .navbar-brand:focus {
@@ -10738,10 +10742,11 @@ body {
 }
 
 #mainNav .navbar-brand {
-    color: #000000;
+    color: #898989;
     font-weight: 700;
     padding: 0.9rem 0;
 }
+
 
 #mainNav .navbar-nav .nav-item:hover {
     color: fade(#fff, 80%);
@@ -10754,62 +10759,62 @@ body {
     background-color: transparent;
 }
 
-@media (min-width: 992px) {
-    #mainNav {
-        padding-top: 0;
-        padding-bottom: 0;
-        border-bottom: none;
-        background-color: transparent;
-        transition: background-color 0.3s ease-in-out;
-    }
 
-    #mainNav .navbar-brand {
-        padding: 0.5rem 0;
-        color: rgba(255, 255, 255, 0.5);
-    }
-
-    #mainNav .nav-link {
-        transition: none;
-        padding: 2rem 1.5rem;
-        color: rgba(255, 255, 255, 0.5);
-    }
-
-    #mainNav .nav-link:hover {
-        color: rgba(255, 255, 255, 0.75);
-    }
-
-    #mainNav .nav-link:active {
-        color: #fff;
-    }
-
-    #mainNav.navbar-shrink {
-        background-color: #fff;
-    }
-
-    #mainNav.navbar-shrink .navbar-brand {
-        color: #000000;
-    }
-
-    #mainNav.navbar-shrink .nav-link {
-        color: #000000;
-        padding: 1.5rem 1.5rem 1.25rem;
-        border-bottom: 0.25rem solid transparent;
-    }
-
-    #mainNav.navbar-shrink .nav-link:hover {
-        color: #64a19d;
-    }
-
-    #mainNav.navbar-shrink .nav-link:active {
-        color: #467370;
-    }
-
-    #mainNav.navbar-shrink .nav-link.active {
-        color: #64a19d;
-        outline: none;
-        border-bottom: 0.25rem solid #64a19d;
-    }
+#mainNav {
+    padding-top: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+    background-color: transparent;
+    transition: background-color 0.3s ease-in-out;
 }
+
+#mainNav .navbar-brand {
+    padding: 0.5rem 0;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+#mainNav .nav-link {
+    transition: none;
+    padding: 2rem 1.5rem;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+#mainNav .nav-link:hover {
+    color: rgba(255, 255, 255, 0.75);
+}
+
+#mainNav .nav-link:active {
+    color: #fff;
+}
+
+#mainNav.navbar-shrink {
+    background-color: #fff;
+}
+
+#mainNav.navbar-shrink .navbar-brand {
+    color: #000000;
+}
+
+#mainNav.navbar-shrink .nav-link {
+    color: #000000;
+    padding: 1.5rem 1.5rem 1.25rem;
+    border-bottom: 0.25rem solid transparent;
+}
+
+#mainNav.navbar-shrink .nav-link:hover {
+    color: #64a19d;
+}
+
+#mainNav.navbar-shrink .nav-link:active {
+    color: #467370;
+}
+
+#mainNav.navbar-shrink .nav-link.active {
+    color: #64a19d;
+    outline: none;
+    border-bottom: 0.25rem solid #64a19d;
+}
+
 
 .btn {
     box-shadow: 0 0.1875rem 0.1875rem 0 rgba(0, 0, 0, 0.1) !important;
