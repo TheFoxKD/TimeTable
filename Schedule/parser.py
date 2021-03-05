@@ -7,7 +7,7 @@ from selenium import webdriver
 from selenium.webdriver import ActionChains
 from selenium.webdriver.support.ui import Select
 
-DEBUG = True  # режим Debug, в конечном проекте использовать значение False
+DEBUG = False  # режим Debug, в конечном проекте использовать значение False
 TIME_SLEEP = 2  # время сна перед действиями
 CHROME_BASE = os.getcwd()
 # Для даунов, это данные для входа в гисео
