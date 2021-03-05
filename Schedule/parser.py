@@ -8,7 +8,7 @@ from selenium.webdriver import ActionChains
 from selenium.webdriver.support.ui import Select
 
 DEBUG = False  # режим Debug, в конечном проекте использовать значение False
-TIME_SLEEP = 3  # время сна перед действиями
+TIME_SLEEP = 2  # время сна перед действиями
 CHROME_BASE = os.getcwd()
 settings = webdriver.ChromeOptions()
 if not DEBUG:

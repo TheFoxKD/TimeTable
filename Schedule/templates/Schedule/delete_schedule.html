@@ -33,8 +33,8 @@
     <header class="masthead" id="edit_affair">
         <div class="container d-flex h-100 align-items-center">
             <div class="mx-auto text-center">
-                <h1 class="mx-auto my-0 text-uppercase masthead_h1_custom">Вы уверены что хотите
-                    удалить {{ object.affair }} от {{ object.date }}?</h1>
+                <h2 class="text-white-50 mx-auto mt-2 mb-5">Вы уверены что хотите
+                    удалить {{ object.affair }} от {{ object.date }}?</h2>
                 <form method="post">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-primary btn-block">Удалить</button>

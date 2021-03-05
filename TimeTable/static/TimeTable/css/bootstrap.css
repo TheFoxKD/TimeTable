@@ -54,6 +54,8 @@ body {
     background-color: #fff;
     -webkit-text-size-adjust: 100%;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    width: 100%;
+    height: 100%;
 }
 
 [tabindex="-1"]:focus:not(:focus-visible) {
@@ -211,12 +213,12 @@ sup {
 }
 
 a {
-    color: #0d6efd;
+    color: #71a37b;
     text-decoration: underline;
 }
 
 a:hover {
-    color: #0a58ca;
+    color: #a2eeb2;
 }
 
 a:not([href]):not([class]), a:not([href]):not([class]):hover {
@@ -2107,12 +2109,12 @@ progress {
 }
 
 .table-dark {
-    --bs-table-bg: #212529;
-    --bs-table-striped-bg: #2c3034;
+    --bs-table-bg: #181818;
+    --bs-table-striped-bg: #282828;
     --bs-table-striped-color: #fff;
     --bs-table-active-bg: #373b3e;
     --bs-table-active-color: #fff;
-    --bs-table-hover-bg: #323539;
+    --bs-table-hover-bg: #282828;
     --bs-table-hover-color: #fff;
     color: #fff;
     border-color: #373b3e;
