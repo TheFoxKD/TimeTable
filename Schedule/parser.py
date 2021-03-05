@@ -52,6 +52,7 @@ def date_reformat(date_old):
         month = '11'
     elif date_old.find('дек') > 0:
         month = '12'
+    # noinspection PyUnboundLocalVariable
     return month
 
 
@@ -125,8 +126,7 @@ def parsing(place, town, type_school, school, login, password):
     :return: html код старницы ЭЛ дневника
     """
     driver.get("https://giseo.rkomi.ru/about.html")
-    data.clear()
-    time.sleep(TIME_SLEEP)
+    # time.sleep(TIME_SLEEP)
     try:
         in_place = Select(driver.find_element_by_xpath(
             '/html/body/div[2]/div[1]/div/div/div[2]/div[1]/div/div/div/div[3]/div/select'))
@@ -197,3 +197,4 @@ if __name__ == "__main__":
     time.sleep(TIME_SLEEP)
     # parsing(place='Городской округ Сыктывкар', town='Сыктывкар, г.', type_school='Общеобразовательная', school='МАОУ "Технологический лицей"', login='Криштопа', password='576789')
     driver.quit()
+
