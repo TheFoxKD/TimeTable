@@ -7,18 +7,10 @@ from selenium import webdriver
 from selenium.webdriver import ActionChains
 from selenium.webdriver.support.ui import Select
 
-DEBUG = False  # режим Debug, в конечном проекте использовать значение False
-TIME_SLEEP = 3  # время сна перед действиями
+DEBUG = True  # режим Debug, в конечном проекте использовать значение False
+TIME_SLEEP = 2  # время сна перед действиями
 CHROME_BASE = os.getcwd()
-settings = webdriver.ChromeOptions()
-if not DEBUG:
-    settings.add_argument('headless')  # аргумент отвечает за запуск окна в скрытом режиме
-driver = webdriver.Chrome(options=settings, executable_path=os.path.join(CHROME_BASE, 'chromedriver.exe'))
-driver.maximize_window()
-driver.get("https://giseo.rkomi.ru/about.html")
-
 # Для даунов, это данные для входа в гисео
-
 data = []
 
 
@@ -125,68 +117,80 @@ def parsing(place, town, type_school, school, login, password):
     :param password: пароль из ЭД
     :return: html код старницы ЭЛ дневника
     """
+    settings = webdriver.ChromeOptions()
+    if not DEBUG:
+        settings.add_argument('headless')  # аргумент отвечает за запуск окна в скрытом режиме
+    driver = webdriver.Chrome(options=settings, executable_path=os.path.join(CHROME_BASE, 'chromedriver.exe'))
+    driver.implicitly_wait(10)
+    driver.maximize_window()
     driver.get("https://giseo.rkomi.ru/about.html")
     # time.sleep(TIME_SLEEP)
+    data.clear()
     try:
-        in_place = Select(driver.find_element_by_xpath(
-            '/html/body/div[2]/div[1]/div/div/div[2]/div[1]/div/div/div/div[3]/div/select'))
-        in_place.select_by_visible_text(place)
-        in_town = Select(driver.find_element_by_xpath(
-            '/html/body/div[2]/div[1]/div/div/div[2]/div[1]/div/div/div/div[4]/div/select'))
-        in_town.select_by_visible_text(town)
+        try:
+            in_place = Select(driver.find_element_by_xpath(
+                '/html/body/div[2]/div[1]/div/div/div[2]/div[1]/div/div/div/div[3]/div/select'))
+            in_place.select_by_visible_text(place)
+            in_town = Select(driver.find_element_by_xpath(
+                '/html/body/div[2]/div[1]/div/div/div[2]/div[1]/div/div/div/div[4]/div/select'))
+            in_town.select_by_visible_text(town)
+        except:
+            pass
+
+        in_type_school = Select(
+            driver.find_element_by_xpath('/html/body/div[2]/div[1]/div/div/div[2]/div[1]/div/div/div/div[5]/div/select'))
+        in_type_school.select_by_visible_text(type_school)
+        try:
+            in_school = Select(driver.find_element_by_xpath(
+                '/html/body/div[2]/div[1]/div/div/div[2]/div[1]/div/div/div/div[6]/div/select'))
+            in_school.select_by_visible_text(school)
+        except:
+            pass
+        in_login = driver.find_element_by_xpath('/html/body/div[2]/div[1]/div/div/div[2]/div[1]/div/div/div/div[8]/input')
+        in_login.send_keys(login)
+        in_password = driver.find_element_by_xpath(
+            '/html/body/div[2]/div[1]/div/div/div[2]/div[1]/div/div/div/div[9]/input')
+        in_password.send_keys(password)
+        sing_in = driver.find_element_by_xpath('/html/body/div[2]/div[1]/div/div/div[2]/div[1]/div/div/div/div[12]/a/span')
+        # sing_in.click()
+        driver.execute_script("arguments[0].click();", sing_in)
+        # time.sleep(TIME_SLEEP)
+        try:
+            driver.find_element_by_xpath(
+                '/html/body/div[1]/div/div/div/div/div[4]/div/div/div/div/button[2]/span[2]').click()
+        except:
+            print('error')
+            pass
+        # print(driver.find_element_by_xpath('/html/body/div[1]/div/div/div/div/div[1]/div/div').text())
+        #
+        # try:
+        #     driver.find_element_by_xpath('/html/body/div[1]/div/div/div/div/div[4]/div/div/div/div/button[2]').click()
+        # except:
+        #     pass
+
+        # --------------------------------------------------------------------------------------------------------------------------------------------
+        # time.sleep(TIME_SLEEP)
+
+        diary = driver.find_element_by_xpath('/html/body/div[1]/div[4]/nav/ul/li[4]/a')
+        but = driver.find_element_by_xpath('/html/body/div[1]/div[4]/nav/ul/li[4]/ul/li[1]/a')
+
+        Hover = ActionChains(driver).move_to_element(diary)
+        Hover.perform()
+        but.click()
+        # driver.find_element_by_xpath(
+        #    '/html/body/div[2]/div[1]/div/div/div/div[2]/div/div[2]/div/div/div[2]/div[1]/div[2]/div[1]/i').click()
+        # ---------------------------------------------------------------------------------------------------------------------------------------------
+        # driver.implicitly_wait(5)
+        time.sleep(TIME_SLEEP)
+        # print(driver.current_url)
+        html = driver.page_source
+        # print(html)
+        return parse_html(html)
     except:
-        pass
+        print('Всё накрылось')
 
-    in_type_school = Select(
-        driver.find_element_by_xpath('/html/body/div[2]/div[1]/div/div/div[2]/div[1]/div/div/div/div[5]/div/select'))
-    in_type_school.select_by_visible_text(type_school)
-    try:
-        in_school = Select(driver.find_element_by_xpath(
-            '/html/body/div[2]/div[1]/div/div/div[2]/div[1]/div/div/div/div[6]/div/select'))
-        in_school.select_by_visible_text(school)
-    except:
-        pass
-    in_login = driver.find_element_by_xpath('/html/body/div[2]/div[1]/div/div/div[2]/div[1]/div/div/div/div[8]/input')
-    in_login.send_keys(login)
-    in_password = driver.find_element_by_xpath(
-        '/html/body/div[2]/div[1]/div/div/div[2]/div[1]/div/div/div/div[9]/input')
-    in_password.send_keys(password)
-    sing_in = driver.find_element_by_xpath('/html/body/div[2]/div[1]/div/div/div[2]/div[1]/div/div/div/div[12]/a/span')
-    # sing_in.click()
-    driver.execute_script("arguments[0].click();", sing_in)
-    time.sleep(TIME_SLEEP)
-    try:
-        driver.find_element_by_xpath(
-            '/html/body/div[1]/div/div/div/div/div[4]/div/div/div/div/button[2]/span[2]').click()
-    except:
-        print('error')
-        pass
-    # print(driver.find_element_by_xpath('/html/body/div[1]/div/div/div/div/div[1]/div/div').text())
-    #
-    # try:
-    #     driver.find_element_by_xpath('/html/body/div[1]/div/div/div/div/div[4]/div/div/div/div/button[2]').click()
-    # except:
-    #     pass
-
-    # --------------------------------------------------------------------------------------------------------------------------------------------
-    time.sleep(TIME_SLEEP)
-
-    diary = driver.find_element_by_xpath('/html/body/div[1]/div[4]/nav/ul/li[4]/a')
-    but = driver.find_element_by_xpath('/html/body/div[1]/div[4]/nav/ul/li[4]/ul/li[1]/a')
-
-    Hover = ActionChains(driver).move_to_element(diary)
-    Hover.perform()
-    but.click()
-    # driver.find_element_by_xpath(
-    #    '/html/body/div[2]/div[1]/div/div/div/div[2]/div/div[2]/div/div/div[2]/div[1]/div[2]/div[1]/i').click()
-    # ---------------------------------------------------------------------------------------------------------------------------------------------
-    # driver.implicitly_wait(5)
-    time.sleep(TIME_SLEEP)
-    # print(driver.current_url)
-    html = driver.page_source
-    # print(html)
-
-    return parse_html(html)
+    finally:
+        driver.quit()
 
 
 if __name__ == "__main__":
@@ -194,7 +198,5 @@ if __name__ == "__main__":
     Режим тестирования, запуск файла "вручную" запустит этот код и проведет тест с принимаяемыми значениями,
     которые описаны ниже.
     """
-    time.sleep(TIME_SLEEP)
+    # time.sleep(TIME_SLEEP)
     # parsing(place='Городской округ Сыктывкар', town='Сыктывкар, г.', type_school='Общеобразовательная', school='МАОУ "Технологический лицей"', login='Криштопа', password='576789')
-    driver.quit()
-
