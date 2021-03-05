@@ -90,9 +90,7 @@ class DetailSchedule(LoginRequiredMixin, UserPassesTestMixin, CreateView):
                 count_model += 1
             if Schedule.objects.filter(user_id=self.kwargs['user_id'], date=objects[0]['date'], affair=objects[0]['affair'], time_start=objects[0]['time_start'],
                                        time_end=objects[0]['time_end'], homework=objects[0]['homework']).exists():
-                print('есть')
-                # for i in sch:
-                # Schedule.objects.bulk_update(sch, ('time_start', 'time_end', 'date', 'affair', 'homework'))
+                print('Работает')
             else:
                 Schedule.objects.bulk_create(sch)
         except NoSuchElementException as er:

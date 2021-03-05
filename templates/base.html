@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="{% static 'TimeTable/assets/img/favicon.ico' %}" type="image/x-icon">
     {#Подключение css от bs5#}
-    <link href="{% static 'TimeTable/css/bootstrap.css' %}" rel="stylesheet" crossorigin="anonymous">
+    <link href="{% static 'TimeTable/css/bootstrap.min.css' %}" rel="stylesheet" crossorigin="anonymous">
     {% block add_settings %}
 
     {% endblock %}
@@ -30,8 +30,9 @@
 {% if messages %}
     {% for message in messages %}
         {% if message.tags %}
-            <div class="alert alert-{{ message.tags }}" role="alert">
+            <div class="alert alert-dismissible fade show alert-{{ message.tags }}" role="alert">
                 {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         {% endif %}
     {% endfor %}
