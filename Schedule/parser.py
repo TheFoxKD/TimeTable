@@ -161,30 +161,18 @@ def parsing(place, town, type_school, school, login, password):
         except:
             print('error')
             pass
-        # print(driver.find_element_by_xpath('/html/body/div[1]/div/div/div/div/div[1]/div/div').text())
-        #
-        # try:
-        #     driver.find_element_by_xpath('/html/body/div[1]/div/div/div/div/div[4]/div/div/div/div/button[2]').click()
-        # except:
-        #     pass
-
-        # --------------------------------------------------------------------------------------------------------------------------------------------
-        # time.sleep(TIME_SLEEP)
 
         diary = driver.find_element_by_xpath('/html/body/div[1]/div[4]/nav/ul/li[4]/a')
         but = driver.find_element_by_xpath('/html/body/div[1]/div[4]/nav/ul/li[4]/ul/li[1]/a')
 
         Hover = ActionChains(driver).move_to_element(diary)
         Hover.perform()
+
         but.click()
-        # driver.find_element_by_xpath(
-        #    '/html/body/div[2]/div[1]/div/div/div/div[2]/div/div[2]/div/div/div[2]/div[1]/div[2]/div[1]/i').click()
-        # ---------------------------------------------------------------------------------------------------------------------------------------------
-        # driver.implicitly_wait(5)
+
         time.sleep(TIME_SLEEP)
-        # print(driver.current_url)
+
         html = driver.page_source
-        # print(html)
         return parse_html(html)
     except:
         print('Всё накрылось')
@@ -198,5 +186,5 @@ if __name__ == "__main__":
     Режим тестирования, запуск файла "вручную" запустит этот код и проведет тест с принимаяемыми значениями,
     которые описаны ниже.
     """
-    # time.sleep(TIME_SLEEP)
-    # parsing(place='Городской округ Сыктывкар', town='Сыктывкар, г.', type_school='Общеобразовательная', school='МАОУ "Технологический лицей"', login='Криштопа', password='576789')
+    # time.sleep(TIME_SLEEP) parsing(place='Городской округ Сыктывкар', town='Сыктывкар, г.', type_school='Общеобразовательная', school='МАОУ "Технологический лицей"',
+    # login='Криштопа', password='576789')

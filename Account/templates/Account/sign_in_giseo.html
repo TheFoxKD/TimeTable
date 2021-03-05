@@ -13,7 +13,9 @@
 
 {% block content %}
     <!-- Navigation-->
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <nav class="navbar navbar-expand-lg navbar-light" id="mainNav"
+         style="position: absolute; z-index: 999999999; align-items: center;
+    justify-content: space-between;top: 0;right: 0;left: 0;">
         <div class="container">
             <a class="navbar-brand" href="{% url 'main_page' %}">TimeTablePlus</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
@@ -32,8 +34,8 @@
     <header class="masthead" id="sign_in_giseo">
         <div class="container d-flex h-100 align-items-center">
             <div class="mx-auto text-center">
-                <h3 class="mx-auto my-0 text-uppercase">Подключение giseo</h3>
-                <form method="post">
+                <h2 class="mx-auto my-0 text-uppercase">Подключение к э.д.</h2>
+                <form method="post" id="pisun">
                     {% csrf_token %}
                     {{ form.media.js }}
                     {{ form.as_p }}
@@ -47,4 +49,7 @@
     </footer>
 {% endblock %}
 <!-- Core theme JS-->
-<script src="{% static 'TimeTable/js/scripts.js' %}"></script>
+{% block script %}
+    <script src="{% static 'TimeTable/js/scripts.js' %}"></script>
+{% endblock %}
+

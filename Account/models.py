@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+
+#  Copyright (c) 2021. TheFox
+
 from django.contrib.auth.models import User
 from django.db import models
 
@@ -38,12 +41,10 @@ class Educational_organization(models.Model):
 
 
 class Giseo(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='пользователь', blank=False, help_text='Пользователь записан числом')
-    login = models.CharField(max_length=150, verbose_name='логин', blank=False, help_text='Логин - это Ваше уникальное имя в системе giseo')
-    password = models.CharField(max_length=100, verbose_name='пароль', blank=False,
-                                help_text='Пароль - это секретный набор символов, чтобы система поняла, что именно Вы входите в giseo')
-    place = models.ForeignKey(Place, on_delete=models.CASCADE, verbose_name='городской округ / Муниципальный район',
-                              help_text='Выберите из списка ваш городской округ или ''муниципальный район')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='пользователь', blank=False)
+    login = models.CharField(max_length=150, verbose_name='логин', blank=False)
+    password = models.CharField(max_length=100, verbose_name='пароль', blank=False)
+    place = models.ForeignKey(Place, on_delete=models.CASCADE, verbose_name='городской округ / Муниципальный район')
     locality = ChainedForeignKey(Locality, chained_field='place', chained_model_field='place', auto_choose=True, sort=True, verbose_name='населённый пункт')
     type_of_oo = ChainedForeignKey(Type_of_oo, chained_field='locality', chained_model_field='locality', auto_choose=True, sort=True, verbose_name='тип ОО')
     educational_organization = ChainedForeignKey(Educational_organization, chained_field='type_of_oo', chained_model_field='type_of_oo', auto_choose=True, sort=True,

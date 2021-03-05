@@ -14,7 +14,9 @@
 
 {% block content %}
     <!-- Navigation-->
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <nav class="navbar navbar-expand-lg navbar-light" id="mainNav"
+         style="position: absolute; z-index: 999999999; align-items: center;
+    justify-content: space-between;top: 0;right: 0;left: 0;">
         <div class="container">
             <a class="navbar-brand" href="{% url 'main_page' %}">TimeTablePlus</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
@@ -33,7 +35,8 @@
     <header class="masthead" id="edit_affair">
         <div class="container d-flex h-100 align-items-center">
             <div class="mx-auto text-center">
-
+                <h2 class="mx-auto my-0 text-uppercase masthead_h1_custom" style="color: #71a37b;">Редактировать
+                    дело</h2>
                 <form method="post">
                     {% csrf_token %}
                     {{ form.as_p }}

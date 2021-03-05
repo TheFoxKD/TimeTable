@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+
+#  Copyright (c) 2021. TheFox
+
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.models import User
@@ -24,10 +27,8 @@ class SignInAccountForm(AuthenticationForm):
 
 
 class SignInGiseoForm(forms.ModelForm):
-    login = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Логин'}), max_length=150, label='Логин',
-                            help_text='Логин - это Ваше уникальное имя в системе giseo')
-    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Пароль'}), max_length=100, label='Пароль',
-                               help_text='Пароль - это секретный набор символов, чтобы система поняла, что именно Вы входите в giseo')
+    login = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Логин'}), max_length=150, label='Логин')
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Пароль'}), max_length=100, label='Пароль')
 
     class Meta:
         model = Giseo
