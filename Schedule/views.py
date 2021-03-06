@@ -7,10 +7,9 @@ import datetime
 
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
-from django.db import IntegrityError
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
-from selenium.common.exceptions import NoSuchElementException
+from loguru import logger
 
 from Account.models import Giseo
 from Schedule.forms import CreateAffairScheduleForm
@@ -31,6 +30,7 @@ class DetailSchedule(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     context_object_name = 'schedule'
     form_class = CreateAffairScheduleForm
 
+    @logger.catch()
     def form_valid(self, form):
         """
         Данная функция вызывается, если форма прошла валидацию. Когда данная фукнция вызывается мы подставляем в форму id пользователя, чтобы далее он записался в бд
@@ -42,6 +42,7 @@ class DetailSchedule(LoginRequiredMixin, UserPassesTestMixin, CreateView):
         form.instance.user = User.objects.get(pk=self.kwargs['user_id'])
         return super(DetailSchedule, self).form_valid(form)
 
+    @logger.catch()
     def test_func(self):
         """
         Данная функция вызывается при загрузке страницы. Данная функция проверяет есть ли доступ у пользователя к данной странице. У нас два условия, чтобы пользователь получил
@@ -54,6 +55,7 @@ class DetailSchedule(LoginRequiredMixin, UserPassesTestMixin, CreateView):
         elif self.request.user.is_staff:
             return True
 
+    @logger.catch()
     def get_success_url(self):
         """
         Данная функция вызывается после успешного POST запроса. Данная функция перенаправляет на пользователя на страницу с его расписанием после создания нового дела
@@ -62,6 +64,7 @@ class DetailSchedule(LoginRequiredMixin, UserPassesTestMixin, CreateView):
         """
         return reverse_lazy('Schedule:schedule', kwargs={'user_id': self.kwargs['user_id']})
 
+    @logger.catch()
     def get_context_data(self, *, object_list=None, **kwargs):
         """
         Данная функция вызывается после получения пользователя доступа к странице. Тут фильтруется модель под рамки начала недели и конца недели. Разбивается на каждый день
@@ -74,35 +77,29 @@ class DetailSchedule(LoginRequiredMixin, UserPassesTestMixin, CreateView):
         :rtype:
         """
         context = super(DetailSchedule, self).get_context_data(**kwargs)
-        try:
-            if Giseo.objects.filter(user_id=self.kwargs['user_id']).exists():
-                giseo_obj = Giseo.objects.get(user_id=self.kwargs['user_id'])
-                objects = parsing(giseo_obj.place.name, giseo_obj.locality.name, giseo_obj.type_of_oo.name, giseo_obj.educational_organization.name, giseo_obj.login,
-                                  giseo_obj.password)
-                try:
-                    count_model = Schedule.objects.all().order_by('id').last().pk + 1
-                except AttributeError as er:
-                    count_model = 1
-                    print(f'Error:{er}')
-                sch = []
-                for i in objects:
-                    sch.append(Schedule(pk=count_model, user_id=self.kwargs['user_id'], time_start=i['time_start'], time_end=i['time_end'], date=i['date'], affair=i['affair'],
-                                        homework=i['homework']))
-                    count_model += 1
-                if Schedule.objects.filter(user_id=self.kwargs['user_id'], date=objects[0]['date'], affair=objects[0]['affair'], time_start=objects[0]['time_start'],
-                                           time_end=objects[0]['time_end'], homework=objects[0]['homework']).exists():
-                    print('Работает')
-                else:
-                    Schedule.objects.bulk_create(sch)
+
+        if Giseo.objects.filter(user_id=self.kwargs['user_id']).exists():
+            giseo_obj = Giseo.objects.get(user_id=self.kwargs['user_id'])
+            objects = parsing(giseo_obj.place.name, giseo_obj.locality.name, giseo_obj.type_of_oo.name, giseo_obj.educational_organization.name, giseo_obj.login,
+                              giseo_obj.password)
+            try:
+                count_model = Schedule.objects.all().order_by('id').last().pk + 1
+            except AttributeError:
+                count_model = 1
+            sch = []
+            for i in objects:
+                sch.append(Schedule(pk=count_model, user_id=self.kwargs['user_id'], time_start=i['time_start'], time_end=i['time_end'], date=i['date'], affair=i['affair'],
+                                    homework=i['homework']))
+                count_model += 1
+            if Schedule.objects.filter(user_id=self.kwargs['user_id'], date=objects[0]['date'], affair=objects[0]['affair'], time_start=objects[0]['time_start'],
+                                       time_end=objects[0]['time_end'], homework=objects[0]['homework']).exists():
+                logger.info('Данные уже в бд. Парсер отработал. Полёт нормальный.')
             else:
-                print('Пользователь не подключён к Giseo')
-        except NoSuchElementException as er:
-            print(f'Error:{er}')
-        except UnboundLocalError as er:
-            print(f'Error:{er}')
-            print('Человек не имеет')
-        except IntegrityError as er:
-            print(f'Error:{er}')
+                Schedule.objects.bulk_create(sch)
+                logger.info('Данные добавлены в бд.')
+        else:
+            logger.info('Пользователь не привязал аккаунт э.д. к своему аккануту.')
+
         date = datetime.date.today()
         start_week = date - datetime.timedelta(date.weekday())
         end_week = start_week + datetime.timedelta(7)
@@ -138,6 +135,7 @@ class UpdateAffairSchedule(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     template_name = 'Schedule/update_schedule.html'
     form_class = CreateAffairScheduleForm
 
+    @logger.catch()
     def test_func(self):
         """
         Данная функция проверяет наличи доступа пользователя к данной странице.
@@ -150,6 +148,7 @@ class UpdateAffairSchedule(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         elif self.request.user.is_staff:
             return True
 
+    @logger.catch()
     def get_success_url(self):
         """
         Данная функция после успешного POST запроса, перенаправляет пользователя на его расписание
@@ -167,6 +166,7 @@ class DeleteAffairSchedule(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Schedule
     template_name = 'Schedule/delete_schedule.html'
 
+    @logger.catch()
     def get_success_url(self):
         """
         Данная функция после успешного POST запроса, перенаправляет пользователя на его расписание
@@ -175,6 +175,7 @@ class DeleteAffairSchedule(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         """
         return reverse_lazy('Schedule:schedule', kwargs={'user_id': self.object.user.id})
 
+    @logger.catch()
     def test_func(self):
         """
         Данная функция проверяет наличи доступа пользователя к данной странице.

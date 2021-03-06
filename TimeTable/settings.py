@@ -18,7 +18,7 @@ import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-
+from loguru import logger
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -162,3 +162,5 @@ CACHES = {
         'TIMEOUT': 0,
     }
 }
+# Logging
+logger.add('debug.log', format="{time} {level} {message}", level='DEBUG', rotation='10 KB', compression='zip')

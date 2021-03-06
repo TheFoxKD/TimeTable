@@ -6,6 +6,7 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, FormView
+from loguru import logger
 
 import Account
 from Account.forms import SignInAccountForm, SignInGiseoForm, SignUpAccountForm
@@ -25,6 +26,7 @@ class SignUpAccount(SuccessMessageMixin, CreateView):
     template_name = 'Account/sign_up.html'
     success_message = f'Вы успешно прошли регистрацию'
 
+    @logger.catch()
     def get_success_url(self):
         """
         Данная функция после успешного заполнения формы перенаправляет на страницу авторизации
@@ -44,6 +46,7 @@ class SignInAccount(SuccessMessageMixin, LoginView):
     template_name = 'Account/sign_in.html'
     success_message = f'Вы успешно вошли в свой аккаунт'
 
+    @logger.catch()
     def get_success_url(self):
         """
         Данная функция после успешного заполнения формы перенаправляет на страницу расаписания пользователя, который совершает запрос
@@ -70,6 +73,7 @@ class SignInGiseo(LoginRequiredMixin, SuccessMessageMixin, FormView):
     template_name = 'Account/sign_in_giseo.html'
     success_message = f'Вы успешно привязали э.д. к аккаунту'
 
+    @logger.catch()
     def get_success_url(self):
         """
         Данная функция после успешного заполнения формы перенаправляет на страницу расаписания пользователя, который совершает запрос
@@ -78,6 +82,7 @@ class SignInGiseo(LoginRequiredMixin, SuccessMessageMixin, FormView):
         """
         return reverse_lazy('Schedule:schedule', kwargs={'user_id': self.request.user.id})
 
+    @logger.catch()
     def form_valid(self, form):
         """
         Данная функция выполняется, если форма прошла валидацию. Данная функция совершает попытку получить объект с user = пользователю, который совершает данный запрос. Если
