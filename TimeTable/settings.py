@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'smart_selects',
     'TimeTable',
     'Schedule',
+    'debug_toolbar',
 ]
 
 MIDDLEWARE = [
@@ -53,10 +54,12 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.cache.FetchFromCacheMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',  # debug toolbar
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 ]
 
 ROOT_URLCONF = 'TimeTable.urls'
@@ -159,8 +162,22 @@ CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
         'LOCATION': os.path.join(BASE_DIR, 'caches'),
-        'TIMEOUT': 0,
     }
 }
 # Logging
 logger.add('debug.log', format="{time} {level} {message}", level='DEBUG', rotation='10 KB', compression='zip')
+
+# settings.py
+if DEBUG:
+    import mimetypes
+
+    mimetypes.add_type("application/javascript", ".js", True)
+
+
+def custom_show_toolbar(request):
+    return True  # Always show toolbar, for example purposes only.
+
+
+DEBUG_TOOLBAR_CONFIG = {
+    'SHOW_TOOLBAR_CALLBACK': 'TimeTable.settings.custom_show_toolbar',
+}

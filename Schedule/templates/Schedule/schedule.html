@@ -32,7 +32,7 @@
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                            data-bs-toggle="dropdown"
                            aria-expanded="false">
-                            {{ name_user }}
+                            {{ request.user.username }}
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="{% url 'Account:sign_in_giseo' %}">Подключить
@@ -84,7 +84,8 @@
     <header class="masthead" id="page-top">
         <div class="container d-flex h-100 align-items-center">
             <div class="mx-auto text-center">
-                <h1 class="mx-auto my-0 text-uppercase" style="color: #71a37b;">Расписание {{ name_user }}</h1>
+                <h1 class="mx-auto my-0 text-uppercase" style="color: #71a37b;">
+                    Расписание {{ request.user.username }}</h1>
             </div>
         </div>
     </header>

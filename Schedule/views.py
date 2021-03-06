@@ -7,6 +7,7 @@ import datetime
 
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
+from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from loguru import logger
@@ -121,11 +122,11 @@ class DetailSchedule(LoginRequiredMixin, UserPassesTestMixin, CreateView):
         context['fri_date'] = date_generated[4]
         context['sat_date'] = date_generated[5]
         context['sun_date'] = date_generated[6]
-        context['name_user'] = User.objects.get(pk=self.kwargs['user_id']).username
+        # context['name_user'] = User.objects.get(pk=self.kwargs['user_id']).username
         return context
 
 
-class UpdateAffairSchedule(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+class UpdateAffairSchedule(SuccessMessageMixin, LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     """
     model = Schedule - это модель, на которой построена данная страница
     template_name = Schedule/update_schedule.html - это HTML код, который вызывается при загрузке страницы
