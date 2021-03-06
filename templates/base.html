@@ -31,10 +31,10 @@
     {% for message in messages %}
         {% if message.tags %}
             <div class="alert alert-dismissible fade show alert-{{ message.tags }}" role="alert"
-                 style="background-color: black;border: none; color: #405F46; border-radius: 0;">
+                 style="background-color: black;border: none; color: #405F46; border-radius: 0;margin: 0 0 0;">
                 {{ message }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
-                        style="background-color: #ff0000"></button>
+                        style="background-color: #ff0000; height:0.5em;"></button>
             </div>
         {% endif %}
     {% endfor %}
@@ -42,7 +42,6 @@
 {#Подключение js кода от bs5#}
 <script src="{% static 'TimeTable/js/bootstrap.bundle.js' %}" crossorigin="anonymous"></script>
 {% block script %}
-
 {% endblock %}
 </body>
 </html>

@@ -53,8 +53,9 @@ class SignInAccount(SuccessMessageMixin, LoginView):
         return reverse_lazy('Schedule:schedule', kwargs={'user_id': self.request.user.id})
 
 
-class LogOutAccount(LogoutView):
+class LogOutAccount(SuccessMessageMixin, LogoutView):
     template_name = 'Account/logout.html'
+    success_message = 'Вы успешно вышли из аккаунта'
 
 
 class SignInGiseo(LoginRequiredMixin, SuccessMessageMixin, FormView):
@@ -67,7 +68,7 @@ class SignInGiseo(LoginRequiredMixin, SuccessMessageMixin, FormView):
     model = Giseo
     form_class = SignInGiseoForm
     template_name = 'Account/sign_in_giseo.html'
-    success_message = f'Вы успешно подключили giseo к своему аккаунту'
+    success_message = f'Вы успешно привязали э.д. к аккаунту'
 
     def get_success_url(self):
         """

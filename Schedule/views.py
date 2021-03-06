@@ -75,30 +75,32 @@ class DetailSchedule(LoginRequiredMixin, UserPassesTestMixin, CreateView):
         """
         context = super(DetailSchedule, self).get_context_data(**kwargs)
         try:
-            giseo_obj = Giseo.objects.get(user_id=self.kwargs['user_id'])
-            objects = parsing(giseo_obj.place.name, giseo_obj.locality.name, giseo_obj.type_of_oo.name, giseo_obj.educational_organization.name, giseo_obj.login,
-                              giseo_obj.password)
-            try:
-                count_model = Schedule.objects.all().order_by('id').last().pk + 1
-            except AttributeError as er:
-                count_model = 1
-                print(f'Error:{er}')
-            sch = []
-            for i in objects:
-                sch.append(Schedule(pk=count_model, user_id=self.kwargs['user_id'], time_start=i['time_start'], time_end=i['time_end'], date=i['date'], affair=i['affair'],
-                                    homework=i['homework']))
-                count_model += 1
-            if Schedule.objects.filter(user_id=self.kwargs['user_id'], date=objects[0]['date'], affair=objects[0]['affair'], time_start=objects[0]['time_start'],
-                                       time_end=objects[0]['time_end'], homework=objects[0]['homework']).exists():
-                print('Работает')
+            if Giseo.objects.filter(user_id=self.kwargs['user_id']).exists():
+                giseo_obj = Giseo.objects.get(user_id=self.kwargs['user_id'])
+                objects = parsing(giseo_obj.place.name, giseo_obj.locality.name, giseo_obj.type_of_oo.name, giseo_obj.educational_organization.name, giseo_obj.login,
+                                  giseo_obj.password)
+                try:
+                    count_model = Schedule.objects.all().order_by('id').last().pk + 1
+                except AttributeError as er:
+                    count_model = 1
+                    print(f'Error:{er}')
+                sch = []
+                for i in objects:
+                    sch.append(Schedule(pk=count_model, user_id=self.kwargs['user_id'], time_start=i['time_start'], time_end=i['time_end'], date=i['date'], affair=i['affair'],
+                                        homework=i['homework']))
+                    count_model += 1
+                if Schedule.objects.filter(user_id=self.kwargs['user_id'], date=objects[0]['date'], affair=objects[0]['affair'], time_start=objects[0]['time_start'],
+                                           time_end=objects[0]['time_end'], homework=objects[0]['homework']).exists():
+                    print('Работает')
+                else:
+                    Schedule.objects.bulk_create(sch)
             else:
-                Schedule.objects.bulk_create(sch)
+                print('Пользователь не подключён к Giseo')
         except NoSuchElementException as er:
             print(f'Error:{er}')
         except UnboundLocalError as er:
             print(f'Error:{er}')
-        except Giseo.DoesNotExist as er:
-            print(f'Error:{er}')
+            print('Человек не имеет')
         except IntegrityError as er:
             print(f'Error:{er}')
         date = datetime.date.today()

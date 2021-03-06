@@ -124,7 +124,6 @@ def parsing(place, town, type_school, school, login, password):
     driver.implicitly_wait(10)
     driver.maximize_window()
     driver.get("https://giseo.rkomi.ru/about.html")
-    # time.sleep(TIME_SLEEP)
     data.clear()
     try:
         try:
@@ -152,9 +151,7 @@ def parsing(place, town, type_school, school, login, password):
             '/html/body/div[2]/div[1]/div/div/div[2]/div[1]/div/div/div/div[9]/input')
         in_password.send_keys(password)
         sing_in = driver.find_element_by_xpath('/html/body/div[2]/div[1]/div/div/div[2]/div[1]/div/div/div/div[12]/a/span')
-        # sing_in.click()
         driver.execute_script("arguments[0].click();", sing_in)
-        # time.sleep(TIME_SLEEP)
         try:
             driver.find_element_by_xpath(
                 '/html/body/div[1]/div/div/div/div/div[4]/div/div/div/div/button[2]/span[2]').click()
@@ -186,5 +183,5 @@ if __name__ == "__main__":
     Режим тестирования, запуск файла "вручную" запустит этот код и проведет тест с принимаяемыми значениями,
     которые описаны ниже.
     """
-    # time.sleep(TIME_SLEEP) parsing(place='Городской округ Сыктывкар', town='Сыктывкар, г.', type_school='Общеобразовательная', school='МАОУ "Технологический лицей"',
+    # parsing(place='Городской округ Сыктывкар', town='Сыктывкар, г.', type_school='Общеобразовательная', school='МАОУ "Технологический лицей"',
     # login='Криштопа', password='576789')
