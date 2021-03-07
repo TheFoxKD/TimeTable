@@ -2,7 +2,7 @@
 {% load static %}
 {% block add_settings %}
     <link rel="shortcut icon" href="{% static 'TimeTable/assets/img/favicon.ico' %}" type="image/x-icon">
-    <script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" crossorigin="anonymous"></script>
+    {#    <script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" crossorigin="anonymous"></script>#}
     <!-- Google fonts-->
     <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
@@ -10,11 +10,13 @@
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="{% static 'TimeTable/css/styles.css' %}" rel="stylesheet"/>
 {% endblock %}
-
+{% block title %}
+    Вход
+{% endblock %}
 {% block content %}
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-light" id="mainNav"
-         style="position: absolute; z-index: 999999999; align-items: center;
+         style="position: absolute; z-index: 100; align-items: center;
     justify-content: space-between;top: 0;right: 0;left: 0;">
         <div class="container">
             <a class="navbar-brand" href="{% url 'main_page' %}">TimeTablePlus</a>
