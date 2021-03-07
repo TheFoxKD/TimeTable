@@ -13,7 +13,6 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 #  Copyright (c) 2021. TheFox
-
 import os
 from pathlib import Path
 
@@ -59,7 +58,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
 ]
 
 ROOT_URLCONF = 'TimeTable.urls'
@@ -113,9 +111,18 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-DATE_FORMAT = "Y-m-d"
-DATETIME_FORMAT = 'j F Y г. G:i'
 
+LANGUAGE_CODE = 'ru-RU'
+
+TIME_ZONE = 'Europe/Moscow'
+
+USE_I18N = True
+
+USE_L10N = True
+
+USE_TZ = True
+# DATE_FORMAT = "%d %m %Y"
+# DATETIME_FORMAT = 'j F Y г. G:i'
 DATE_INPUT_FORMATS = (
     '%Y-%m-%d', '%m/%d/%Y', '%m/%d/%y',  # '2006-10-25', '10/25/2006', '10/25/06'
     '%b %d %Y', '%b %d, %Y',  # 'Oct 25 2006', 'Oct 25, 2006'
@@ -138,16 +145,6 @@ DATETIME_INPUT_FORMATS = (
     '%m/%d/%y',  # '10/25/06'
 )
 
-LANGUAGE_CODE = 'ru-RU'
-
-TIME_ZONE = 'Europe/Moscow'
-
-USE_I18N = True
-
-USE_L10N = False
-
-USE_TZ = True
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
@@ -165,7 +162,7 @@ CACHES = {
     }
 }
 # Logging
-logger.add('debug.log', format="{time} {level} {message}", level='DEBUG', rotation='10 KB', compression='zip')
+logger.add('debug.log', format="{time} {level} {message}", level='DEBUG', rotation='10 KB', compression='zip', backtrace=False, diagnose=True)
 
 # settings.py
 if DEBUG:

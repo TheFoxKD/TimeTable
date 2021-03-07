@@ -85,16 +85,15 @@ class DetailSchedule(LoginRequiredMixin, UserPassesTestMixin, CreateView):
             if objects is None:
                 objects = parsing(giseo_obj.place.name, giseo_obj.locality.name, giseo_obj.type_of_oo.name,
                                   giseo_obj.educational_organization.name, giseo_obj.login, giseo_obj.password)
-                cache.set('data_cache', objects)
-            try:
+                cache.set('data_cache', objects, 60 * 1440)
+            if Schedule.objects.all().exists():
                 count_model = Schedule.objects.all().order_by('id').last().pk + 1
-            except AttributeError:
+            else:
                 count_model = 1
-            sch = []
-            for i in objects:
-                sch.append(Schedule(pk=count_model, user_id=self.kwargs['user_id'], time_start=i['time_start'],
-                                    time_end=i['time_end'], date=i['date'], affair=i['affair'],
-                                    homework=i['homework']))
+            affairs = []
+            for affair in objects:
+                affairs.append(Schedule(pk=count_model, user_id=self.kwargs['user_id'], time_start=affair['time_start'], time_end=affair['time_end'], date=affair['date'],
+                                        affair=affair['affair'], homework=affair['homework']))
                 count_model += 1
 
             if Schedule.objects.filter(user_id=self.kwargs['user_id'], date=objects[0]['date'],
@@ -102,7 +101,7 @@ class DetailSchedule(LoginRequiredMixin, UserPassesTestMixin, CreateView):
                                        time_end=objects[0]['time_end'], homework=objects[0]['homework']).exists():
                 logger.info('Данные уже в бд. Парсер отработал. Полёт нормальный.')
             else:
-                Schedule.objects.bulk_create(sch)
+                Schedule.objects.bulk_create(affairs)
                 logger.info('Данные добавлены в бд.')
         else:
             logger.info('Пользователь не привязал аккаунт э.д. к своему аккануту.')
