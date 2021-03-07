@@ -32,7 +32,7 @@ class DetailSchedule(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     context_object_name = 'schedule'
     form_class = CreateAffairScheduleForm
 
-    @logger.catch()
+    @logger.catch
     def form_valid(self, form):
         """
         Данная функция вызывается, если форма прошла валидацию. Когда данная фукнция вызывается мы подставляем в форму id пользователя, чтобы далее он записался в бд
@@ -44,7 +44,7 @@ class DetailSchedule(LoginRequiredMixin, UserPassesTestMixin, CreateView):
         form.instance.user = User.objects.get(pk=self.kwargs['user_id'])
         return super(DetailSchedule, self).form_valid(form)
 
-    @logger.catch()
+    @logger.catch
     def test_func(self):
         """
         Данная функция вызывается при загрузке страницы. Данная функция проверяет есть ли доступ у пользователя к данной странице. У нас два условия, чтобы пользователь получил
@@ -57,7 +57,7 @@ class DetailSchedule(LoginRequiredMixin, UserPassesTestMixin, CreateView):
         elif self.request.user.is_staff:
             return True
 
-    @logger.catch()
+    @logger.catch
     def get_success_url(self):
         """
         Данная функция вызывается после успешного POST запроса. Данная функция перенаправляет на пользователя на страницу с его расписанием после создания нового дела
@@ -66,7 +66,7 @@ class DetailSchedule(LoginRequiredMixin, UserPassesTestMixin, CreateView):
         """
         return reverse_lazy('Schedule:schedule', kwargs={'user_id': self.kwargs['user_id']})
 
-    @logger.catch()
+    @logger.catch
     def get_context_data(self, *, object_list=None, **kwargs):
         """
         Данная функция вызывается после получения пользователя доступа к странице. Тут фильтруется модель под рамки начала недели и конца недели. Разбивается на каждый день
@@ -110,7 +110,7 @@ class DetailSchedule(LoginRequiredMixin, UserPassesTestMixin, CreateView):
         date = datetime.date.today()
         start_week = date - datetime.timedelta(date.weekday())
         end_week = start_week + datetime.timedelta(6)
-        logger.info(f'Date: {date}, start_week: {start_week}, end_week: {end_week}')
+        logger.debug(f'Date: {date}, start_week: {start_week}, end_week: {end_week}')
         # Для расписания
         model = Schedule.objects.filter(user=self.kwargs['user_id'], date__range=[start_week, end_week])
         context['mon'] = model.filter(date__week_day=2).order_by('time_start')
@@ -143,7 +143,7 @@ class UpdateAffairSchedule(SuccessMessageMixin, LoginRequiredMixin, UserPassesTe
     template_name = 'Schedule/update_schedule.html'
     form_class = CreateAffairScheduleForm
 
-    @logger.catch()
+    @logger.catch
     def test_func(self):
         """
         Данная функция проверяет наличи доступа пользователя к данной странице.
@@ -156,7 +156,7 @@ class UpdateAffairSchedule(SuccessMessageMixin, LoginRequiredMixin, UserPassesTe
         elif self.request.user.is_staff:
             return True
 
-    @logger.catch()
+    @logger.catch
     def get_success_url(self):
         """
         Данная функция после успешного POST запроса, перенаправляет пользователя на его расписание
@@ -174,7 +174,7 @@ class DeleteAffairSchedule(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Schedule
     template_name = 'Schedule/delete_schedule.html'
 
-    @logger.catch()
+    @logger.catch
     def get_success_url(self):
         """
         Данная функция после успешного POST запроса, перенаправляет пользователя на его расписание
@@ -183,7 +183,7 @@ class DeleteAffairSchedule(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         """
         return reverse_lazy('Schedule:schedule', kwargs={'user_id': self.object.user.id})
 
-    @logger.catch()
+    @logger.catch
     def test_func(self):
         """
         Данная функция проверяет наличи доступа пользователя к данной странице.

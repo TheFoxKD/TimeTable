@@ -26,7 +26,7 @@ class SignUpAccount(SuccessMessageMixin, CreateView):
     template_name = 'Account/sign_up.html'
     success_message = f'Вы успешно прошли регистрацию'
 
-    @logger.catch()
+    @logger.catch
     def get_success_url(self):
         """
         Данная функция после успешного заполнения формы перенаправляет на страницу авторизации
@@ -46,7 +46,7 @@ class SignInAccount(SuccessMessageMixin, LoginView):
     template_name = 'Account/sign_in.html'
     success_message = f'Вы успешно вошли в свой аккаунт'
 
-    @logger.catch()
+    @logger.catch
     def get_success_url(self):
         """
         Данная функция после успешного заполнения формы перенаправляет на страницу расаписания пользователя, который совершает запрос
@@ -73,7 +73,7 @@ class SignInGiseo(LoginRequiredMixin, SuccessMessageMixin, FormView):
     template_name = 'Account/sign_in_giseo.html'
     success_message = f'Вы успешно привязали электронный дневник к аккаунту'
 
-    @logger.catch()
+    @logger.catch
     def get_success_url(self):
         """
         Данная функция после успешного заполнения формы перенаправляет на страницу расаписания пользователя, который совершает запрос
@@ -82,7 +82,7 @@ class SignInGiseo(LoginRequiredMixin, SuccessMessageMixin, FormView):
         """
         return reverse_lazy('Schedule:schedule', kwargs={'user_id': self.request.user.id})
 
-    @logger.catch()
+    @logger.catch
     def form_valid(self, form):
         """
         Данная функция выполняется, если форма прошла валидацию. Данная функция совершает попытку получить объект с user = пользователю, который совершает данный запрос. Если

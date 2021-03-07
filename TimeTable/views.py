@@ -6,6 +6,6 @@ from django.shortcuts import render
 from loguru import logger
 
 
-@logger.catch()
+@logger.catch
 def index(request):
     return render(request, template_name='TimeTable/index.html')
