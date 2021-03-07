@@ -12,7 +12,7 @@
     <link href="{% static 'TimeTable/css/styles.css' %}" rel="stylesheet"/>
 {% endblock %}
 {% block title %}
-    Расписание {{ request.user.username }}
+    Расписание
 {% endblock %}
 {% block content %}
     {#Preloader#}
@@ -88,7 +88,7 @@
         <div class="container d-flex h-100 align-items-center">
             <div class="mx-auto text-center">
                 <h1 class="mx-auto my-0 text-uppercase" style="color: #71a37b;">
-                    Расписание {{ request.user.username }}</h1>
+                    Расписание</h1>
             </div>
         </div>
     </header>
@@ -534,7 +534,7 @@
     <!-- Modal -->
     <div class="modal fade" id="createAffair" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-            <div class="modal-content">
+            <div class="modal-content" style="background-color: black;"> <!-- Менять здесь -->
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Добавить дело</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

@@ -8,6 +8,8 @@ import datetime
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
 from django.contrib.messages.views import SuccessMessageMixin
+from django.core.cache import cache
+from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from loguru import logger
@@ -78,21 +80,27 @@ class DetailSchedule(LoginRequiredMixin, UserPassesTestMixin, CreateView):
         :rtype:
         """
         context = super(DetailSchedule, self).get_context_data(**kwargs)
-
         if Giseo.objects.filter(user_id=self.kwargs['user_id']).exists():
             giseo_obj = Giseo.objects.get(user_id=self.kwargs['user_id'])
-            objects = parsing(giseo_obj.place.name, giseo_obj.locality.name, giseo_obj.type_of_oo.name, giseo_obj.educational_organization.name, giseo_obj.login,
-                              giseo_obj.password)
+            objects = cache.get('data_cache')
+            print(objects)
+            if objects is None:
+                objects = parsing(giseo_obj.place.name, giseo_obj.locality.name, giseo_obj.type_of_oo.name,
+                                  giseo_obj.educational_organization.name, giseo_obj.login, giseo_obj.password)
+                cache.set('data_cache', objects)
             try:
                 count_model = Schedule.objects.all().order_by('id').last().pk + 1
             except AttributeError:
                 count_model = 1
             sch = []
             for i in objects:
-                sch.append(Schedule(pk=count_model, user_id=self.kwargs['user_id'], time_start=i['time_start'], time_end=i['time_end'], date=i['date'], affair=i['affair'],
+                sch.append(Schedule(pk=count_model, user_id=self.kwargs['user_id'], time_start=i['time_start'],
+                                    time_end=i['time_end'], date=i['date'], affair=i['affair'],
                                     homework=i['homework']))
                 count_model += 1
-            if Schedule.objects.filter(user_id=self.kwargs['user_id'], date=objects[0]['date'], affair=objects[0]['affair'], time_start=objects[0]['time_start'],
+
+            if Schedule.objects.filter(user_id=self.kwargs['user_id'], date=objects[0]['date'],
+                                       affair=objects[0]['affair'], time_start=objects[0]['time_start'],
                                        time_end=objects[0]['time_end'], homework=objects[0]['homework']).exists():
                 logger.info('Данные уже в бд. Парсер отработал. Полёт нормальный.')
             else:
@@ -122,7 +130,6 @@ class DetailSchedule(LoginRequiredMixin, UserPassesTestMixin, CreateView):
         context['fri_date'] = date_generated[4]
         context['sat_date'] = date_generated[5]
         context['sun_date'] = date_generated[6]
-        # context['name_user'] = User.objects.get(pk=self.kwargs['user_id']).username
         return context
 
 
