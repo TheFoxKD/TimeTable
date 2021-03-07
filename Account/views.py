@@ -71,7 +71,7 @@ class SignInGiseo(LoginRequiredMixin, SuccessMessageMixin, FormView):
     model = Giseo
     form_class = SignInGiseoForm
     template_name = 'Account/sign_in_giseo.html'
-    success_message = f'Вы успешно привязали э.д. к аккаунту'
+    success_message = f'Вы успешно привязали электронный дневник к аккаунту'
 
     @logger.catch()
     def get_success_url(self):

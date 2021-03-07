@@ -9,7 +9,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.cache import cache
-from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from loguru import logger
@@ -83,7 +82,6 @@ class DetailSchedule(LoginRequiredMixin, UserPassesTestMixin, CreateView):
         if Giseo.objects.filter(user_id=self.kwargs['user_id']).exists():
             giseo_obj = Giseo.objects.get(user_id=self.kwargs['user_id'])
             objects = cache.get('data_cache')
-            print(objects)
             if objects is None:
                 objects = parsing(giseo_obj.place.name, giseo_obj.locality.name, giseo_obj.type_of_oo.name,
                                   giseo_obj.educational_organization.name, giseo_obj.login, giseo_obj.password)
@@ -111,7 +109,8 @@ class DetailSchedule(LoginRequiredMixin, UserPassesTestMixin, CreateView):
 
         date = datetime.date.today()
         start_week = date - datetime.timedelta(date.weekday())
-        end_week = start_week + datetime.timedelta(7)
+        end_week = start_week + datetime.timedelta(6)
+        logger.info(f'Date: {date}, start_week: {start_week}, end_week: {end_week}')
         # Для расписания
         model = Schedule.objects.filter(user=self.kwargs['user_id'], date__range=[start_week, end_week])
         context['mon'] = model.filter(date__week_day=2).order_by('time_start')
@@ -121,8 +120,9 @@ class DetailSchedule(LoginRequiredMixin, UserPassesTestMixin, CreateView):
         context['fri'] = model.filter(date__week_day=6).order_by('time_start')
         context['sat'] = model.filter(date__week_day=7).order_by('time_start')
         context['sun'] = model.filter(date__week_day=1).order_by('time_start')
+
         # Для дат
-        date_generated = [start_week + datetime.timedelta(days=x) for x in range(0, (end_week - start_week).days)]
+        date_generated = [start_week + datetime.timedelta(days=x) for x in range(0, (end_week - start_week).days + 1)]
         context['mon_date'] = date_generated[0]
         context['tue_date'] = date_generated[1]
         context['wed_date'] = date_generated[2]
