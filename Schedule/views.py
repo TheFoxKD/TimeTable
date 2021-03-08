@@ -81,11 +81,13 @@ class DetailSchedule(LoginRequiredMixin, UserPassesTestMixin, CreateView):
         context = super(DetailSchedule, self).get_context_data(**kwargs)
         if Giseo.objects.filter(user_id=self.kwargs['user_id']).exists():
             giseo_obj = Giseo.objects.get(user_id=self.kwargs['user_id'])
-            objects = cache.get('data_cache')
+            objects = cache.get(giseo_obj.user.username)
+
             if objects is None:
                 objects = parsing(giseo_obj.place.name, giseo_obj.locality.name, giseo_obj.type_of_oo.name,
                                   giseo_obj.educational_organization.name, giseo_obj.login, giseo_obj.password)
-                cache.set('data_cache', objects, 60 * 1440)
+                cache.set(giseo_obj.user.username, objects, 60 * 1440)
+
             if Schedule.objects.all().exists():
                 count_model = Schedule.objects.all().order_by('id').last().pk + 1
             else:

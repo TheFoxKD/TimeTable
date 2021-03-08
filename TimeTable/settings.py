@@ -162,7 +162,7 @@ CACHES = {
     }
 }
 # Logging
-logger.add('debug.log', format="{time} {level} {message}", level='DEBUG', rotation='10 KB', compression='zip', backtrace=False, diagnose=True)
+logger.add('debug.log', format="{time} {level} {message}", level='INFO', rotation='10 KB', compression='zip', backtrace=False, diagnose=True)
 
 # settings.py
 if DEBUG:
