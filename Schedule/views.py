@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-#  Copyright (c) 2021. TheFox
+#  Copyright (c) 2021.  TheFox
 
 # Create your views here.
 import datetime
@@ -106,7 +106,8 @@ class DetailSchedule(LoginRequiredMixin, UserPassesTestMixin, CreateView):
                 Schedule.objects.bulk_create(affairs)
                 logger.info('Данные добавлены в бд.')
         else:
-            logger.info('Пользователь не привязал аккаунт э.д. к своему аккануту.')
+            # logger.info('Пользователь не привязал аккаунт э.д. к своему аккануту.')
+            pass
 
         date = datetime.date.today()
         start_week = date - datetime.timedelta(date.weekday())

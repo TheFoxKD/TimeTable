@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 
-#  Copyright (c) 2021. TheFox
+#  Copyright (c) 2021.  TheFox
 
 from django import forms
 
 from Schedule.models import Schedule
+
+BOOL_CHOICES = ((True, 'Да'), (False, 'Нет'))
 
 
 class CreateAffairScheduleForm(forms.ModelForm):
@@ -17,7 +19,7 @@ class CreateAffairScheduleForm(forms.ModelForm):
                                label='Окончание дела')
     homework = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Домашнее задание'}), label='Домашнее задание', required=False)
     note = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Заметка'}), label='Заметка', required=False)
-    is_ready = forms.NullBooleanField(widget=forms.NullBooleanSelect(attrs={'class': 'form-control'}), label='Готово?', required=True)
+    is_ready = forms.NullBooleanField(widget=forms.Select(attrs={'class': 'form-control'}, choices=BOOL_CHOICES), label='Готово?', required=True)
 
     class Meta:
         model = Schedule

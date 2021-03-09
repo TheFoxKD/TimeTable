@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
 
-#  Copyright (c) 2021. TheFox
+#  Copyright (c) 2021.  TheFox
 
 from django.contrib.auth.models import User
 from django.db import models
 
 
 # Create your models here.
-
 
 class Schedule(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='id пользователя', unique=False, help_text='Id пользователя должен быть в виде одного числа', null=True)
