@@ -112,7 +112,7 @@ class DetailSchedule(LoginRequiredMixin, UserPassesTestMixin, CreateView):
         date = datetime.date.today()
         start_week = date - datetime.timedelta(date.weekday())
         end_week = start_week + datetime.timedelta(6)
-        logger.debug(f'Date: {date}, start_week: {start_week}, end_week: {end_week}')
+        # logger.debug(f'Date: {date}, start_week: {start_week}, end_week: {end_week}')
         # Для расписания
         model = Schedule.objects.filter(user=self.kwargs['user_id'], date__range=[start_week, end_week])
         context['mon'] = model.filter(date__week_day=2).order_by('time_start')

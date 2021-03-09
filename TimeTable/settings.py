@@ -12,7 +12,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
-#  Copyright (c) 2021. TheFox
+#  Copyright (c) 2021.  TheFox
 import os
 from pathlib import Path
 
@@ -27,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv('KEY')
 
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'www.mysite.com']
 
@@ -170,11 +170,11 @@ if DEBUG:
 
     mimetypes.add_type("application/javascript", ".js", True)
 
+if DEBUG:
+    def custom_show_toolbar(request):
+        return True  # Always show toolbar, for example purposes only.
 
-def custom_show_toolbar(request):
-    return True  # Always show toolbar, for example purposes only.
 
-
-DEBUG_TOOLBAR_CONFIG = {
-    'SHOW_TOOLBAR_CALLBACK': 'TimeTable.settings.custom_show_toolbar',
-}
+    DEBUG_TOOLBAR_CONFIG = {
+        'SHOW_TOOLBAR_CALLBACK': 'TimeTable.settings.custom_show_toolbar',
+    }
