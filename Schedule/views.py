@@ -79,42 +79,54 @@ class DetailSchedule(LoginRequiredMixin, UserPassesTestMixin, CreateView):
         :rtype:
         """
         context = super(DetailSchedule, self).get_context_data(**kwargs)
+        # Проверка на наличие объекта модели в бд giseo
         if Giseo.objects.filter(user_id=self.kwargs['user_id']).exists():
-            giseo_obj = Giseo.objects.get(user_id=self.kwargs['user_id'])
-            objects = cache.get(giseo_obj.user.username)
+            giseo_obj = Giseo.objects.get(user_id=self.kwargs['user_id'])  # получения данных giseo пользователя
+            objects = cache.get(giseo_obj.user.username)  # получение кэша по имени пользователя
 
             if objects is None:
                 objects = parsing(giseo_obj.place.name, giseo_obj.locality.name, giseo_obj.type_of_oo.name,
                                   giseo_obj.educational_organization.name, giseo_obj.login, giseo_obj.password)
                 cache.set(giseo_obj.user.username, objects, 60 * 1440)
-            print(objects)
+
             if Schedule.objects.all().exists():
                 count_model = Schedule.objects.all().order_by('id').last().pk + 1
             else:
                 count_model = 1
             affairs = []
-
+            for_exists_date = []
+            for_exists_affair = []
+            for_exists_time_start = []
+            for_exists_time_end = []
+            for_exists_homework = []
             for affair in objects:
                 affairs.append(Schedule(pk=count_model, user_id=self.kwargs['user_id'], time_start=affair['time_start'], time_end=affair['time_end'], date=affair['date'],
                                         affair=affair['affair'], homework=affair['homework']))
                 count_model += 1
-            print(affairs)
-            if Schedule.objects.filter(user_id=self.kwargs['user_id'], date=objects[0]['date'],
-                                       affair=objects[0]['affair'], time_start=objects[0]['time_start'],
-                                       time_end=objects[0]['time_end'], homework=objects[0]['homework']).exists():
+                for_exists_date.append(affair['date'])
+                for_exists_affair.append(affair['affair'])
+                for_exists_time_start.append(affair['time_start'])
+                for_exists_time_end.append(affair['time_end'])
+                for_exists_homework.append(affair['homework'])
+
+            if Schedule.objects.filter(user_id=self.kwargs['user_id'], date__in=for_exists_date,
+                                       affair__in=for_exists_affair, time_start__in=for_exists_time_start,
+                                       time_end__in=for_exists_time_end, homework__in=for_exists_homework).exists():
                 # logger.info('Данные уже в бд. Парсер отработал. Полёт нормальный.')
-                pass
+                print('Данные уже в бд')
             else:
                 Schedule.objects.bulk_create(affairs)
                 # logger.info('Данные добавлены в бд.')
+                print('Данные добавлены в бд')
         else:
             # logger.info('Пользователь не привязал аккаунт э.д. к своему аккануту.')
-            pass
+            print('Пользователь не привязал электронный дневник к своему аккаунту')
 
+        # Вычисление недели по текущей дате
         date = datetime.date.today()
         start_week = date - datetime.timedelta(date.weekday())
         end_week = start_week + datetime.timedelta(6)
-        # logger.debug(f'Date: {date}, start_week: {start_week}, end_week: {end_week}')
+
         # Для расписания
         model = Schedule.objects.filter(user=self.kwargs['user_id'], date__range=[start_week, end_week])
         context['mon'] = model.filter(date__week_day=2).order_by('time_start')
