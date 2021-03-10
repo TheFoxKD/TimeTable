@@ -101,10 +101,11 @@ class DetailSchedule(LoginRequiredMixin, UserPassesTestMixin, CreateView):
             if Schedule.objects.filter(user_id=self.kwargs['user_id'], date=objects[0]['date'],
                                        affair=objects[0]['affair'], time_start=objects[0]['time_start'],
                                        time_end=objects[0]['time_end'], homework=objects[0]['homework']).exists():
-                logger.info('Данные уже в бд. Парсер отработал. Полёт нормальный.')
+                # logger.info('Данные уже в бд. Парсер отработал. Полёт нормальный.')
+                pass
             else:
                 Schedule.objects.bulk_create(affairs)
-                logger.info('Данные добавлены в бд.')
+                # logger.info('Данные добавлены в бд.')
         else:
             # logger.info('Пользователь не привязал аккаунт э.д. к своему аккануту.')
             pass

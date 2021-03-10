@@ -1,4 +1,4 @@
-#  Copyright (c) 2021. TheFox
+#  Copyright (c) 2021.  TheFox
 import os
 import time
 
@@ -7,7 +7,7 @@ from selenium import webdriver
 from selenium.webdriver import ActionChains
 from selenium.webdriver.support.ui import Select
 
-DEBUG = False  # режим Debug, в конечном проекте использовать значение False
+DEBUG = True  # режим Debug, в конечном проекте использовать значение False
 TIME_SLEEP = 1  # время сна перед действиями
 CHROME_BASE = os.getcwd()
 # Для даунов, это данные для входа в гисео
@@ -121,7 +121,7 @@ def parsing(place, town, type_school, school, login, password):
     if not DEBUG:
         settings.add_argument('headless')  # аргумент отвечает за запуск окна в скрытом режиме
     driver = webdriver.Chrome(options=settings, executable_path=os.path.join(CHROME_BASE, 'chromedriver.exe'))
-    driver.implicitly_wait(5)
+    driver.implicitly_wait(60 * 2)
     driver.maximize_window()
     driver.get("https://giseo.rkomi.ru/about.html")
     data.clear()
