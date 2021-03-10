@@ -87,17 +87,18 @@ class DetailSchedule(LoginRequiredMixin, UserPassesTestMixin, CreateView):
                 objects = parsing(giseo_obj.place.name, giseo_obj.locality.name, giseo_obj.type_of_oo.name,
                                   giseo_obj.educational_organization.name, giseo_obj.login, giseo_obj.password)
                 cache.set(giseo_obj.user.username, objects, 60 * 1440)
-
+            print(objects)
             if Schedule.objects.all().exists():
                 count_model = Schedule.objects.all().order_by('id').last().pk + 1
             else:
                 count_model = 1
             affairs = []
+
             for affair in objects:
                 affairs.append(Schedule(pk=count_model, user_id=self.kwargs['user_id'], time_start=affair['time_start'], time_end=affair['time_end'], date=affair['date'],
                                         affair=affair['affair'], homework=affair['homework']))
                 count_model += 1
-
+            print(affairs)
             if Schedule.objects.filter(user_id=self.kwargs['user_id'], date=objects[0]['date'],
                                        affair=objects[0]['affair'], time_start=objects[0]['time_start'],
                                        time_end=objects[0]['time_end'], homework=objects[0]['homework']).exists():
