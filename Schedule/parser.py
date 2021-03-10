@@ -171,8 +171,9 @@ def parsing(place, town, type_school, school, login, password):
 
         html = driver.page_source
         return parse_html(html)
-    except:
-        print('Всё накрылось')
+    except Exception as e:
+        print(e)
+        print('Всё накрылось медным тазом. Поздравляю!')
 
     finally:
         driver.quit()
