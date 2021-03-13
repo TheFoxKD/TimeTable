@@ -121,7 +121,7 @@ def parsing(place, town, type_school, school, login, password):
     if not DEBUG:
         settings.add_argument('headless')  # аргумент отвечает за запуск окна в скрытом режиме
     driver = webdriver.Chrome(options=settings, executable_path=os.path.join(CHROME_BASE, 'chromedriver.exe'))
-    driver.implicitly_wait(60 * 2)
+    driver.implicitly_wait(10)
     driver.maximize_window()
     driver.get("https://giseo.rkomi.ru/about.html")
     data.clear()
