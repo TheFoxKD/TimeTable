@@ -16,6 +16,7 @@
 {% endblock %}
 {% block content %}
     <!-- Navigation-->
+<div>
     <nav class="navbar navbar-expand-lg navbar-light" id="mainNav"
          style="position: absolute; z-index: 100; align-items: center;
     justify-content: space-between;top: 0;right: 0;left: 0;">
@@ -67,14 +68,13 @@
     </section>
     <!-- Projects-->
     <section class="projects-section bg-light" id="projects">
-
-        <div class="container" style="color: #0dcaf0">
+        <div class="container" style="color: #0dcaf0;">
             <h2 class="text-white mb-4">Возможности</h2>
             <!-- Featured Project Row-->
             <div class="row justify-content-center no-gutters">
-                <div class="col-lg-6"><img class="img-fluid" src="{% static 'TimeTable/assets/img/speed.jpg' %}"
+                <div class="col-lg-6"><img class="img-fluid" src="{% static 'TimeTable/assets/img/sin.jpg' %}"
                                            alt=""/></div>
-                <div class="col-lg-6 order-lg-first">
+                <div class="col-lg-6 order-lg-first" style="background-color: #202020;">
                     <div class="bg-black text-center h-100 project">
                         <div class="d-flex h-100">
                             <div class="project-text w-100 my-auto text-center text-lg-right">
@@ -89,9 +89,9 @@
             <!-- Project One Row-->
             <div class="row justify-content-center no-gutters mb-5 mb-lg-0">
                 <div class="col-lg-6"><img class="img-fluid"
-                                           src="{% static 'TimeTable/assets/img/demo-image-01.jpg' %}"
+                                           src="{% static 'TimeTable/assets/img/design.jpg' %}"
                                            alt=""/></div>
-                <div class="col-lg-6">
+                <div class="col-lg-6" style="background-color: #202020;">
                     <div class="bg-black text-center h-100 project">
                         <div class="d-flex h-100">
                             <div class="project-text w-100 my-auto text-center text-lg-left">
@@ -112,5 +112,6 @@
     <footer class="footer bg-black small text-center text-white-50">
         <div class="container">Copyright © TimeTablePlus</div>
     </footer>
+</div>
 {% endblock %}
 <!-- Core theme JS-->
