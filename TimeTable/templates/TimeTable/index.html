@@ -16,27 +16,28 @@
 {% endblock %}
 {% block content %}
     <!-- Navigation-->
-<div>
-    <nav class="navbar navbar-expand-lg navbar-light" id="mainNav"
-         style="position: absolute; z-index: 100; align-items: center;
+    <div>
+        <nav class="navbar navbar-expand-lg navbar-light" id="mainNav"
+             style="position: absolute; z-index: 100; align-items: center;
     justify-content: space-between;top: 0;right: 0;left: 0;">
-        <div class="container">
-            <a class="navbar-brand" href="#page-top">TimeTablePlus</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
-                    aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                Menu
-                <i class="fas fa-bars"></i>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a class="nav-link" href="#about">О нас</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#projects">Возможности</a></li>
-                </ul>
+            <div class="container">
+                <a class="navbar-brand" href="#page-top">TimeTablePlus</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarResponsive"
+                        aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item"><a class="nav-link" href="#about">О нас</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#projects">Возможности</a></li>
+                    </ul>
+                </div>
             </div>
-        </div>
-    </nav>
-    <!-- Masthead-->
-    <header class="masthead" id="page-top">
+        </nav>
+        <!-- Masthead-->
+        <header class="masthead" id="page-top">
         <div class="container d-flex h-100 align-items-center">
             <div class="mx-auto text-center">
                 <h1 class="mx-auto my-0 text-uppercase masthead_h1">TimeTablePlus</h1>
@@ -66,52 +67,52 @@
             <img class="img-fluid" src="{% static 'TimeTable/assets/img/ipad.png' %}" alt=""/>
         </div>
     </section>
-    <!-- Projects-->
-    <section class="projects-section bg-light" id="projects">
-        <div class="container" style="color: #0dcaf0;">
-            <h2 class="text-white mb-4">Возможности</h2>
-            <!-- Featured Project Row-->
-            <div class="row justify-content-center no-gutters">
-                <div class="col-lg-6"><img class="img-fluid" src="{% static 'TimeTable/assets/img/sin.jpg' %}"
-                                           alt=""/></div>
-                <div class="col-lg-6 order-lg-first" style="background-color: #202020;">
-                    <div class="bg-black text-center h-100 project">
-                        <div class="d-flex h-100">
-                            <div class="project-text w-100 my-auto text-center text-lg-right">
-                                <h4 class="text-white">Синхронизация с giseo.rkomi.ru</h4>
-                                <p class="mb-0 text-white-50"></p>
-                                <hr class="d-none d-lg-block mb-0 mr-0"/>
+        <!-- Projects-->
+        <section class="projects-section bg-light" id="projects">
+            <div class="container" style="color: #0dcaf0;">
+                <h2 class="text-white mb-4">Возможности</h2>
+                <!-- Featured Project Row-->
+                <div class="row justify-content-center no-gutters">
+                    <div class="col-lg-6"><img class="img-fluid" src="{% static 'TimeTable/assets/img/sin.jpg' %}"
+                                               alt=""/></div>
+                    <div class="col-lg-6 order-lg-first" style="background-color: #202020;">
+                        <div class="bg-black text-center h-100 project">
+                            <div class="d-flex h-100">
+                                <div class="project-text w-100 my-auto text-center text-lg-right">
+                                    <h4 class="text-white">Синхронизация с giseo.rkomi.ru</h4>
+                                    <p class="mb-0 text-white-50"></p>
+                                    <hr class="d-none d-lg-block mb-0 mr-0"/>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- Project One Row-->
-            <div class="row justify-content-center no-gutters mb-5 mb-lg-0">
-                <div class="col-lg-6"><img class="img-fluid"
-                                           src="{% static 'TimeTable/assets/img/design.jpg' %}"
-                                           alt=""/></div>
-                <div class="col-lg-6" style="background-color: #202020;">
-                    <div class="bg-black text-center h-100 project">
-                        <div class="d-flex h-100">
-                            <div class="project-text w-100 my-auto text-center text-lg-left">
-                                <h4 class="text-white">Современный дизайн</h4>
-                                <p class="mb-0 text-white-50"></p>
-                                <hr class="d-none d-lg-block mb-0 ml-0"/>
+                <!-- Project One Row-->
+                <div class="row justify-content-center no-gutters mb-5 mb-lg-0">
+                    <div class="col-lg-6"><img class="img-fluid"
+                                               src="{% static 'TimeTable/assets/img/design.jpg' %}"
+                                               alt=""/></div>
+                    <div class="col-lg-6" style="background-color: #202020;">
+                        <div class="bg-black text-center h-100 project">
+                            <div class="d-flex h-100">
+                                <div class="project-text w-100 my-auto text-center text-lg-left">
+                                    <h4 class="text-white">Современный дизайн</h4>
+                                    <p class="mb-0 text-white-50"></p>
+                                    <hr class="d-none d-lg-block mb-0 ml-0"/>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <!-- Project Two Row-->
+
             </div>
-            <!-- Project Two Row-->
 
-        </div>
-
-    </section>
-    <!-- Footer-->
-    <footer class="footer bg-black small text-center text-white-50">
-        <div class="container">Copyright © TimeTablePlus</div>
-    </footer>
-</div>
+        </section>
+        <!-- Footer-->
+        <footer class="footer bg-black small text-center text-white-50">
+            <div class="container">Copyright © TimeTablePlus</div>
+        </footer>
+    </div>
 {% endblock %}
 <!-- Core theme JS-->
