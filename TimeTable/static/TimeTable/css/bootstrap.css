@@ -1,3 +1,5 @@
+/* Copyright (c) 2021.  TheFox */
+
 @charset "UTF-8";
 /*!
  * Bootstrap v5.0.0-beta1 (https://getbootstrap.com/)
@@ -7775,7 +7777,7 @@ textarea.form-control-lg {
 }
 
 .bg-light {
-    background-color: #f8f9fa !important;
+    background-color: #000000 !important;
 }
 
 .bg-dark {
