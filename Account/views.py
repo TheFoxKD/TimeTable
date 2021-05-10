@@ -1,4 +1,4 @@
-#  Copyright (c) 2021. TheFox
+#  Copyright (c) 2021.  TheFox
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
@@ -25,7 +25,6 @@ class SignUpAccount(SuccessMessageMixin, CreateView):
     form_class = SignUpAccountForm
     template_name = 'Account/sign_up.html'
     success_message = f'Вы успешно прошли регистрацию'
-
     @logger.catch
     def get_success_url(self):
         """

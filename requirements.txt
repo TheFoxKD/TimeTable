@@ -3,5 +3,5 @@ Django==3.1.7
 django-smart-selects==1.5.9
 loguru==0.5.3
 selenium==3.141.0
-django-debug-toolbar==3.2
+django-debug-toolbar==3.2.1
 html5lib~=1.1

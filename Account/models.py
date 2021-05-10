@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-#  Copyright (c) 2021. TheFox
+#  Copyright (c) 2021.  TheFox
 
 from django.contrib.auth.models import User
 from django.db import models
@@ -10,7 +10,7 @@ from smart_selects.db_fields import ChainedForeignKey
 
 
 class Place(models.Model):
-    name = models.CharField(max_length=150, verbose_name='городской округ / Муниципальный район', blank=False)
+    name = models.CharField(max_length=150, verbose_name='городской округ / Муниципальный район', blank=False, unique=False)
 
     def __str__(self):
         return self.name
@@ -18,7 +18,7 @@ class Place(models.Model):
 
 class Locality(models.Model):
     place = models.ForeignKey(Place, on_delete=models.CASCADE, verbose_name='городской округ / Муниципальный район')
-    name = models.CharField(max_length=150, verbose_name='населённый пункт', blank=False)
+    name = models.CharField(max_length=150, verbose_name='населённый пункт', blank=False, unique=False)
 
     def __str__(self):
         return f'{self.name}'
@@ -26,18 +26,18 @@ class Locality(models.Model):
 
 class Type_of_oo(models.Model):
     locality = models.ForeignKey(Locality, on_delete=models.CASCADE, verbose_name='населённый пункт')
-    name = models.CharField(max_length=150, verbose_name='тип ОО', blank=False)
+    name = models.CharField(max_length=150, verbose_name='тип ОО', blank=False, unique=False)
 
     def __str__(self):
-        return f'{self.name} - {self.locality.name}'
+        return f'{self.name}'
 
 
 class Educational_organization(models.Model):
     type_of_oo = models.ForeignKey(Type_of_oo, on_delete=models.CASCADE, verbose_name='тип ОО')
-    name = models.CharField(max_length=150, verbose_name='образовательная организация', blank=False)
+    name = models.CharField(max_length=150, verbose_name='образовательная организация', blank=False, unique=False)
 
     def __str__(self):
-        return f'{self.name} - {self.type_of_oo.name}'
+        return f'{self.name}'
 
 
 class Giseo(models.Model):

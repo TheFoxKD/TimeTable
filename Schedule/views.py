@@ -4,16 +4,18 @@
 
 # Create your views here.
 import datetime
+import json
 
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.cache import cache
+from django.http import HttpResponse
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from loguru import logger
 
-from Account.models import Giseo
+from Account.models import Educational_organization, Giseo, Locality, Type_of_oo
 from Schedule.forms import CreateAffairScheduleForm
 from Schedule.models import Schedule
 from Schedule.parser import parsing
@@ -211,3 +213,24 @@ class DeleteAffairSchedule(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
             return True
         elif self.request.user.is_staff:
             return True
+
+
+def add_govno(request):
+    with  open('D:\TimeTable\data_registration_giseo_denis.json', 'r') as f:
+        file = json.load(f)
+    list_type = []
+    list_main = file["1"]
+    for i in list_main:
+        try:
+            town_name = i[0]  # воркута
+            town_id = Locality.objects.get(name=town_name).id  # id воркуты
+            type_name = i[1]  # до
+            type_id = Type_of_oo.objects.get(locality=town_id, name=type_name)
+            name_edu = i[2]
+            list_type.append(Educational_organization(type_of_oo=type_id, name=name_edu))
+        except Exception as e:
+            print(e)
+    print(list_type)
+    objs = Educational_organization.objects.bulk_create(list_type)
+    print("Всё")
+    return HttpResponse('Кайф')
